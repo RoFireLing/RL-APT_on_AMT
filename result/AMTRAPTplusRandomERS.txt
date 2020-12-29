@@ -1,3 +1,0 @@
-id-version: 18
-Fmeasure: 11.0
-F2measure: 0.0

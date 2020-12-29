@@ -12,10 +12,16 @@ import static java.io.File.separator;
  * partition2 : I-1a;I-3b
  * partition3 : I-1b;I-3a
  * partition4 : I-1b;I-3b (该分区不存在)
+ *
  * @author phantom
  * @date 2019/04/28
  */
 public class Partition4CUBS {
+
+    public static void main(String[] args) {
+        Partition4CUBS cubs = new Partition4CUBS();
+        cubs.partition();
+    }
 
     public void partition() {
         String path = new Constant().getMrPath() + separator + "CUBS";
@@ -58,11 +64,6 @@ public class Partition4CUBS {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        Partition4CUBS cubs = new Partition4CUBS();
-        cubs.partition();
     }
 
 }

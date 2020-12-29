@@ -15,18 +15,18 @@ import static java.io.File.separator;
 public class GetNumber {
 
 
-    public int getNumber(String mr, String objectName){
+    public int getNumber(String mr, String objectName) {
         int index = 0;
-        String path = Constant.mrDirPath +separator + objectName;
+        String path = Constant.mrDirPath + separator + objectName;
         File file = new File(path);
         BufferedReader bufferedReader = null;
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
             String tempstr = "";
             int counter = 0;
-            while((tempstr = bufferedReader.readLine()) != null){
+            while ((tempstr = bufferedReader.readLine()) != null) {
                 counter++;
-                if (tempstr.equals(mr)){
+                if (tempstr.equals(mr)) {
                     index = counter;
                 }
             }

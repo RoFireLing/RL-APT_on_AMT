@@ -33,7 +33,17 @@ import java.util.Set;
  * @auther phantom
  * @create 2019-09-16 下午8:53
  */
-public class MTRandomplusRandom implements NewStrategy{
+public class MTRandomplusRandom implements NewStrategy {
+
+    public static void main(String[] args) {
+        MTRandomplusRandom mt = new MTRandomplusRandom();
+        String[] names = {"CUBS"};
+        for (int i = 0; i < 200; i++) {
+            for (String name : names) {
+                mt.testing(name, i);
+            }
+        }
+    }
 
     @Override
     public void testing(String objectName, int repeatTimes) {
@@ -81,9 +91,9 @@ public class MTRandomplusRandom implements NewStrategy{
                 //测试用例选择结束
                 long endSelectTestCase = System.nanoTime();
                 //记录选择测试用例需要的时间
-                if (killedMutants.size() == 0){
+                if (killedMutants.size() == 0) {
                     onceTimeRecord.firstSelectionTimePlus(endSelectTestCase - startSelectTestCase);
-                }else if (killedMutants.size() == 1){
+                } else if (killedMutants.size() == 1) {
                     onceTimeRecord.secondSelectionTimePlus(endSelectTestCase - startSelectTestCase);
                 }
 
@@ -102,7 +112,7 @@ public class MTRandomplusRandom implements NewStrategy{
                         mutantClazz = Class.forName(mutant.getFullName());
                         Constructor mutantConstructor = mutantClazz.getConstructor();
                         mutantInstance = mutantConstructor.newInstance();
-                        if (objectName.equals("ACMS")){
+                        if (objectName.equals("ACMS")) {
                             double sourceResult = 0;
                             double followUpResult = 0;
                             mutantMethod = mutantClazz.getMethod(methodName, int.class, int.class,
@@ -119,57 +129,57 @@ public class MTRandomplusRandom implements NewStrategy{
                             long endGenerateTestCase = System.nanoTime();
 
                             //记录测试用例的产生时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
                             }
 
                             //　执行测试用例
                             long startExecuteTestCase = System.nanoTime();
                             sourceResult = (double) mutantMethod.invoke(mutantInstance,
-                                    sourceTestCase.getAirClass(),sourceTestCase.getArea(),
-                                    sourceTestCase.isStudent(),sourceTestCase.getLuggage(),
+                                    sourceTestCase.getAirClass(), sourceTestCase.getArea(),
+                                    sourceTestCase.isStudent(), sourceTestCase.getLuggage(),
                                     sourceTestCase.getEconomicfee());
 
                             followUpResult = (double) mutantMethod.invoke(mutantInstance,
-                                    followUpTestCase.getAirClass(),followUpTestCase.getArea(),
-                                    followUpTestCase.isStudent(),followUpTestCase.getLuggage(),
+                                    followUpTestCase.getAirClass(), followUpTestCase.getArea(),
+                                    followUpTestCase.isStudent(), followUpTestCase.getLuggage(),
                                     followUpTestCase.getEconomicfee());
                             long endExecuteTestCase = System.nanoTime();
 
                             //　记录测试用例的执行时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstExecutingTime(endExecuteTestCase - startExecuteTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondExecutingTime(endExecuteTestCase - startExecuteTestCase);
                             }
 
-                            if (MR.equals("The output will not change") && sourceResult != followUpResult){
+                            if (MR.equals("The output will not change") && sourceResult != followUpResult) {
                                 //检测出第一个故障，记录此时的数据
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
 
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
 
-                            if (MR.equals("The output will increase") && sourceResult >= followUpResult){
-                                if (killedMutants.size() == 0){
+                            if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
 
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
-                        }else if (objectName.equals("CUBS")){
+                        } else if (objectName.equals("CUBS")) {
                             double sourceResult = 0;
                             double followUpResult = 0;
                             mutantMethod = mutantClazz.getMethod(methodName, String.class, int.class,
@@ -188,9 +198,9 @@ public class MTRandomplusRandom implements NewStrategy{
                             long endGenerateTestCase = System.nanoTime();
 
                             //记录产生测试用例的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
                             }
 
@@ -198,55 +208,55 @@ public class MTRandomplusRandom implements NewStrategy{
                             long startExecuteTestCase = System.nanoTime();
                             sourceResult = (double) mutantMethod.invoke(mutantInstance,
                                     sourceTestCase.getPlanType(),
-                                    sourceTestCase.getPlanFee(), sourceTestCase.getTalkTime(),sourceTestCase.getFlow());
+                                    sourceTestCase.getPlanFee(), sourceTestCase.getTalkTime(), sourceTestCase.getFlow());
 
                             followUpResult = (double) mutantMethod.invoke(mutantInstance,
                                     followUpTestCase.getPlanType(),
-                                    followUpTestCase.getPlanFee(), followUpTestCase.getTalkTime(),followUpTestCase.getFlow());
+                                    followUpTestCase.getPlanFee(), followUpTestCase.getTalkTime(), followUpTestCase.getFlow());
                             long endExecuteTestCase = System.nanoTime();
 
                             //记录测试用例执行需要的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstExecutingTime(endExecuteTestCase - startExecuteTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondExecutingTime(endExecuteTestCase - startExecuteTestCase);
                             }
 
-                            if (MR.equals("The output will not change") && sourceResult != followUpResult){
-                                if (killedMutants.size() == 0){
+                            if (MR.equals("The output will not change") && sourceResult != followUpResult) {
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
 
                                 }
 
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
 
-                            if (MR.equals("The output will increase") && sourceResult >= followUpResult){
-                                if (killedMutants.size() == 0){
+                            if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
 
-                            if (MR.equals("The output will decrease") && sourceResult <= followUpResult){
-                                if (killedMutants.size() == 0){
+                            if (MR.equals("The output will decrease") && sourceResult <= followUpResult) {
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
-                        }else if (objectName.equals("ERS")){
+                        } else if (objectName.equals("ERS")) {
                             double sourceResult = 0;
                             double followUpResult = 0;
                             mutantMethod = mutantClazz.getMethod(methodName, String.class, double.class,
@@ -266,35 +276,35 @@ public class MTRandomplusRandom implements NewStrategy{
                             long endGenerateTestCase = System.nanoTime();
 
                             //记录产生测试用例需要的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
                             }
 
                             //执行测试用例
                             long startExecuteTestCase = System.nanoTime();
-                            sourceResult = (double) mutantMethod.invoke(mutantInstance,sourceTestCase.getStafflevel(),
+                            sourceResult = (double) mutantMethod.invoke(mutantInstance, sourceTestCase.getStafflevel(),
                                     sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
                                     sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
 
-                            followUpResult = (double) mutantMethod.invoke(mutantInstance,followUpTestCase.getStafflevel(),
+                            followUpResult = (double) mutantMethod.invoke(mutantInstance, followUpTestCase.getStafflevel(),
                                     sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
                                     sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
                             long endExecuteTestCase = System.nanoTime();
 
                             //记录执行测试用例需要的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstExecutingTime(endExecuteTestCase - startExecuteTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondExecutingTime(endExecuteTestCase - startExecuteTestCase);
                             }
 
                             if (MR.equals("The output will not change") && sourceResult != followUpResult) {
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
@@ -302,11 +312,11 @@ public class MTRandomplusRandom implements NewStrategy{
                             }
 
                             if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
 
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
@@ -314,20 +324,20 @@ public class MTRandomplusRandom implements NewStrategy{
                             }
 
                             if (MR.equals("The output will decrease") && sourceResult <= followUpResult) {
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
                                 killedMutants.add(entry.getKey());
                             }
-                        }else {
+                        } else {
                             MSR sourceResult = null;
                             MSR followUpResult = null;
                             mutantMethod = mutantClazz.getMethod(methodName, String.class, String.class, int.class,
-                                    String.class,int.class,int.class,int.class);
+                                    String.class, int.class, int.class, int.class);
 
                             // 产生测试用例
                             long startGenerateTestCase = System.nanoTime();
@@ -343,39 +353,39 @@ public class MTRandomplusRandom implements NewStrategy{
                             long endGenerateTestCase = System.nanoTime();
 
                             //记录产生测试用例的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
                             }
 
                             //执行测试用例
                             long startExecuteTestCase = System.nanoTime();
-                            sourceResult = (MSR) mutantMethod.invoke(mutantInstance,sourceTestCase.getAircraftmodel(),
-                                    sourceTestCase.getChangeinthenumberofcrewmembers(),sourceTestCase.getNewnumberofcrewmembers(),
-                                    sourceTestCase.getChangeinthenumberofpilots(),sourceTestCase.getNewnumberofpilots(),
-                                    sourceTestCase.getNumberofchildpassengers(),sourceTestCase.getNumberofrequestedbundlesofflowers());
+                            sourceResult = (MSR) mutantMethod.invoke(mutantInstance, sourceTestCase.getAircraftmodel(),
+                                    sourceTestCase.getChangeinthenumberofcrewmembers(), sourceTestCase.getNewnumberofcrewmembers(),
+                                    sourceTestCase.getChangeinthenumberofpilots(), sourceTestCase.getNewnumberofpilots(),
+                                    sourceTestCase.getNumberofchildpassengers(), sourceTestCase.getNumberofrequestedbundlesofflowers());
 
-                            followUpResult = (MSR) mutantMethod.invoke(mutantInstance,followUpTestCase.getAircraftmodel(),
-                                    followUpTestCase.getChangeinthenumberofcrewmembers(),followUpTestCase.getNewnumberofcrewmembers(),
-                                    followUpTestCase.getChangeinthenumberofpilots(),followUpTestCase.getNewnumberofpilots(),
-                                    followUpTestCase.getNumberofchildpassengers(),followUpTestCase.getNumberofrequestedbundlesofflowers());
+                            followUpResult = (MSR) mutantMethod.invoke(mutantInstance, followUpTestCase.getAircraftmodel(),
+                                    followUpTestCase.getChangeinthenumberofcrewmembers(), followUpTestCase.getNewnumberofcrewmembers(),
+                                    followUpTestCase.getChangeinthenumberofpilots(), followUpTestCase.getNewnumberofpilots(),
+                                    followUpTestCase.getNumberofchildpassengers(), followUpTestCase.getNumberofrequestedbundlesofflowers());
                             long endExecuteTestCase = System.nanoTime();
 
                             // 记录执行测试用例需要的时间
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 onceTimeRecord.firstExecutingTime(endExecuteTestCase - startExecuteTestCase);
-                            }else if (killedMutants.size() == 1){
+                            } else if (killedMutants.size() == 1) {
                                 onceTimeRecord.secondExecutingTime(endExecuteTestCase - startExecuteTestCase);
                             }
 
-                            String resultRelation = GetResultRelation4MOS.getResultRelation(sourceResult,followUpResult);
+                            String resultRelation = GetResultRelation4MOS.getResultRelation(sourceResult, followUpResult);
 
-                            if (!MR.equals(resultRelation)){
-                                if (killedMutants.size() == 0){
+                            if (!MR.equals(resultRelation)) {
+                                if (killedMutants.size() == 0) {
                                     onceMeasureRecord.FmeasurePlus(counter * 2);
                                 }
-                                if (killedMutants.size() == 1){
+                                if (killedMutants.size() == 1) {
                                     onceMeasureRecord.F2measurePlus(counter * 2 -
                                             onceMeasureRecord.getFmeasure());
                                 }
@@ -413,34 +423,23 @@ public class MTRandomplusRandom implements NewStrategy{
 
         //记录详细的实验结果
         ResultRecorder resultRecorder = new ResultRecorder();
-        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(),measureRecorder.getF2measureArray());
-        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(),measureRecorder.getAverageF2measure(),
+        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
+        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
                 measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
 
-        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(),timeRecorder.getFirstGenerateTestCaseArray(),
-                timeRecorder.getFirstExecuteTestCaseArray(),timeRecorder.getSecondSelectTestCaseArray(),
-                timeRecorder.getSecondGenerateTestCaseArray(),timeRecorder.getSecondExecuteTestCaseArray());
+        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
+                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
+                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
 
-        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(),timeRecorder.getAverageGenerateFirstTestCaseTime(),
+        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
                 timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
-                timeRecorder.getAverageGenerateSecondTestCaseTime(),timeRecorder.getAverageExecuteSecondTestCaseTime());
+                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
 
-        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(),timeRecorder.getVarianceGenerateFirstTestCaseTime(),
-                timeRecorder.getVarianceExecuteFirstTestCaseTime(),timeRecorder.getVarianceSelectSecondTestCaseTime(),
-                timeRecorder.getVarianceGenerateSecondTestCaseTime(),timeRecorder.getVarianceExecuteSecondTestCaseTime());
+        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
+                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
+                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
 
         String excelLogName = "MTRandomplusRandom4" + objectName + ".xlsx";
         resultRecorder.writeResult(excelLogName, repeatTimes);
-    }
-
-
-    public static void main(String[] args) {
-        MTRandomplusRandom mt = new MTRandomplusRandom();
-        String[] names = {"CUBS"};
-        for (int i = 0; i < 200; i++) {
-            for (String name : names){
-                mt.testing(name, i);
-            }
-        }
     }
 }

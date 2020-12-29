@@ -18,7 +18,7 @@ import static java.io.File.separator;
 public class WriteTestingResult {
 
     public void write(String object, String mutantName, String testcasesinfo,
-                      String count){
+                      String count) {
         Constant constant = new Constant();
         String path = constant.testingresultdir + separator + object;
         File file = new File(path);
@@ -26,7 +26,7 @@ public class WriteTestingResult {
         String content = mutantName + ";" + count;
         try {
             PrintWriter printWriter = new PrintWriter(new FileWriter(file, true));
-            printWriter.write(content +"\n");
+            printWriter.write(content + "\n");
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

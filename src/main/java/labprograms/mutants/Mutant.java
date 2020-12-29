@@ -15,7 +15,7 @@ public class Mutant {
     @Getter
     private String fullName;
 
-    public Mutant(String fullName){
+    public Mutant(String fullName) {
         setFullName(fullName);
     }
 }

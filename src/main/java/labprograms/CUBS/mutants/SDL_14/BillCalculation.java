@@ -4,8 +4,7 @@ package labprograms.CUBS.mutants.SDL_14;// This is a mutant program.
 import java.io.IOException;
 
 
-public class BillCalculation
-{
+public class BillCalculation {
 
     private String planType = "";
 
@@ -29,73 +28,72 @@ public class BillCalculation
 
     private double bill = 0;
 
-    public  double phoneBillCalculation( String planType, int planFee, int talkTime, int flow )
-    {
+    public double phoneBillCalculation(String planType, int planFee, int talkTime, int flow) {
         if (planType == "A" || planType == "a") {
             switch (planFee) {
-            case 46 :
-                talkTimeBench = 50;
-                flowBench = 150;
-                talkTimePer = 0.25;
-                break;
+                case 46:
+                    talkTimeBench = 50;
+                    flowBench = 150;
+                    talkTimePer = 0.25;
+                    break;
 
-            case 96 :
-                talkTimeBench = 96;
-                flowBench = 240;
-                break;
+                case 96:
+                    talkTimeBench = 96;
+                    flowBench = 240;
+                    break;
 
-            case 286 :
-                talkTimeBench = 286;
-                flowBench = 900;
-                talkTimePer = 0.15;
-                break;
+                case 286:
+                    talkTimeBench = 286;
+                    flowBench = 900;
+                    talkTimePer = 0.15;
+                    break;
 
-            case 886 :
-                talkTimeBench = 3000;
-                flowBench = 3000;
-                talkTimePer = 0.15;
-                break;
+                case 886:
+                    talkTimeBench = 3000;
+                    flowBench = 3000;
+                    talkTimePer = 0.15;
+                    break;
 
-            case 990 :
-                break;
+                case 990:
+                    break;
 
-            default  :
-                new IOException( "Invalid planFee!" );
+                default:
+                    new IOException("Invalid planFee!");
 
             }
         } else {
             if (planType == "B" || planType == "b") {
                 switch (planFee) {
-                case 46 :
-                    talkTimeBench = 120;
-                    flowBench = 40;
-                    talkTimePer = 0.25;
-                    break;
+                    case 46:
+                        talkTimeBench = 120;
+                        flowBench = 40;
+                        talkTimePer = 0.25;
+                        break;
 
-                case 96 :
-                    talkTimeBench = 450;
-                    flowBench = 80;
-                    talkTimePer = 0.15;
-                    break;
+                    case 96:
+                        talkTimeBench = 450;
+                        flowBench = 80;
+                        talkTimePer = 0.15;
+                        break;
 
-                case 126 :
-                    talkTimeBench = 680;
-                    flowBench = 100;
-                    talkTimePer = 0.15;
-                    break;
+                    case 126:
+                        talkTimeBench = 680;
+                        flowBench = 100;
+                        talkTimePer = 0.15;
+                        break;
 
-                case 186 :
-                    talkTimeBench = 1180;
-                    flowBench = 150;
-                    talkTimePer = 0.15;
-                    break;
+                    case 186:
+                        talkTimeBench = 1180;
+                        flowBench = 150;
+                        talkTimePer = 0.15;
+                        break;
 
-                default  :
-                    new IOException( "Invalid planFee" );
+                    default:
+                        new IOException("Invalid planFee");
 
                 }
             } else {
-                new IOException( "Invalid planType!" );
+                new IOException("Invalid planType!");
             }
         }
         if (talkTime < talkTimeBench) {

@@ -19,6 +19,7 @@ import static java.io.File.separator;
 /**
  * describe:
  * this class is responsible to parse xml file and get the relation of two inputs
+ *
  * @author phantom
  * @date 2019/04/25
  */
@@ -38,12 +39,18 @@ public class ParseXML {
         this.testframeAndMr = new ArrayList<>();
     }
 
+    public static void main(String[] args) {
+        ParseXML parseXML = new ParseXML("MOS");
+        parseXML.getAllRelations();
+        parseXML.writeTestframeAndMr();
+    }
+
     /**
      * the method that parses the xml file in order to get the content of relations
      */
-    public void getAllRelations(){
+    public void getAllRelations() {
         Set<String> relations = new HashSet<>();
-        String pathFile = path +separator + objectName + ".xml";
+        String pathFile = path + separator + objectName + ".xml";
         SAXReader saxReader = new SAXReader();
         Document document = null;
         try {
@@ -59,33 +66,33 @@ public class ParseXML {
         List<Element> pairsfromdiffgroupsList = pairsfromdiffgroupsNode.elements();
         int countNo = 0;
 
-        for (Element ele : pairsfromdiffgroupsList){
+        for (Element ele : pairsfromdiffgroupsList) {
             // get all elements of pairsfromdiffgroupsNode
             List<Element> elegroups = ele.elements();
-            for (Element group : elegroups){
+            for (Element group : elegroups) {
                 // get all mr info
                 List<Element> mrinfo = group.elements();
                 String str = "";
-                for (Element info : mrinfo){
+                for (Element info : mrinfo) {
 
-                    if (info.getName().equals("hasmr")){
-                        if (info.getText().equals("No")){
+                    if (info.getName().equals("hasmr")) {
+                        if (info.getText().equals("No")) {
                             countNo++;
                             break;
                         }
                     }
-                    if (info.getName().equals("inputrelationdefinition")){
+                    if (info.getName().equals("inputrelationdefinition")) {
                         String temp_str = info.getText();
                         String[] tempArray = temp_str.split("->");
                         str += tempArray[0] + ";";
                         str += tempArray[1] + ";";
                     }
-                    if (info.getName().equals("outputrelationdefinition")){
+                    if (info.getName().equals("outputrelationdefinition")) {
                         str += info.getText();
                         relations.add(info.getText());
                     }
                 }
-                if (!(str.equals("") || str.equals("\n"))){
+                if (!(str.equals("") || str.equals("\n"))) {
                     testframeAndMr.add(str);
                 }
 
@@ -95,34 +102,34 @@ public class ParseXML {
         //get "pairsfromdiffgroups" node
         Element pairsfromsamegroupsNode = root.element("pairsfromsamegroups");
         List<Element> pairsfromsamegroupsList = pairsfromsamegroupsNode.elements();
-        for (Element ele : pairsfromsamegroupsList){
+        for (Element ele : pairsfromsamegroupsList) {
             // get all elements of pairsfromdiffgroupsNode
             List<Element> elegroups = ele.elements();
-            for (Element group : elegroups){
+            for (Element group : elegroups) {
                 // get all mr info
                 List<Element> mrinfo = group.elements();
                 String str = "";
-                for (Element info : mrinfo){
+                for (Element info : mrinfo) {
 
-                    if (info.getName().equals("hasmr")){
-                        if (info.getText().equals("No")){
+                    if (info.getName().equals("hasmr")) {
+                        if (info.getText().equals("No")) {
                             countNo++;
                             break;
                         }
                     }
-                    if (info.getName().equals("inputrelationdefinition")){
+                    if (info.getName().equals("inputrelationdefinition")) {
                         String temp_str = info.getText();
                         String[] tempArray = temp_str.split("->");
                         str += tempArray[0] + ";";
                         str += tempArray[1] + ";";
                     }
 
-                    if (info.getName().equals("outputrelationdefinition")){
+                    if (info.getName().equals("outputrelationdefinition")) {
                         str += info.getText();
                         relations.add(info.getText());
                     }
                 }
-                if (!(str.equals("") || str.equals("\n"))){
+                if (!(str.equals("") || str.equals("\n"))) {
                     testframeAndMr.add(str);
                 }
             }
@@ -131,8 +138,7 @@ public class ParseXML {
         System.out.println("不存在MR的条目有：" + String.valueOf(countNo));
     }
 
-
-    public void writeTestframeAndMr(){
+    public void writeTestframeAndMr() {
         String filePath = path + separator + objectName;
         File file = new File(filePath);
         PrintWriter printWriter = null;
@@ -145,11 +151,5 @@ public class ParseXML {
             printWriter.write(testframeAndMr.get(i) + "\n");
         }
         printWriter.close();
-    }
-
-    public static void main(String[] args) {
-        ParseXML parseXML = new ParseXML("MOS");
-        parseXML.getAllRelations();
-        parseXML.writeTestframeAndMr();
     }
 }

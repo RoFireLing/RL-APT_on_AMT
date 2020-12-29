@@ -8,7 +8,7 @@ import java.util.Map;
  * @auther phantom
  * @create 2019-09-17 下午9:30
  */
-public class PrettyPrintingMap<K, V>  {
+public class PrettyPrintingMap<K, V> {
 
     private Map<K, V> map;
 

@@ -1,24 +1,16 @@
 package labprograms.gethardkilledmutants;
 
-import com.alibaba.fastjson.JSONObject;
 import labprograms.testCase.TestCase4MOS;
 import labprograms.testCase.TestSuite4ACMS;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static java.io.File.separator;
 
 /**
  * describe:
  * randomly generate test cases to execute mutants, which can get the mutants
  * that at least need 20 test case to be killed
+ *
  * @author phantom
  * @date 2019/04/18
  */
@@ -27,7 +19,7 @@ public class RT4MOS {
     private static final String[] CHANGEINTHENUMBEROFCREWMEMBERS = {"y", "n"};
     private static final String[] CHANGEINTHENNUMBEROFPILOTS = {"y", "n"};
 
-    public Map<String, Object> createTestCases(int numoftestcases){
+    public Map<String, Object> createTestCases(int numoftestcases) {
         TestSuite4ACMS testSuite4ACMS = new TestSuite4ACMS();
         Random random = new Random(0);
         for (int i = 0; i < numoftestcases; i++) {
@@ -36,10 +28,10 @@ public class RT4MOS {
             int newnumberofcrewmembers = random.nextInt(50) + 1;
             String changeinthenumberofpilots = CHANGEINTHENNUMBEROFPILOTS[random.nextInt(2)];
             int newnumberofpilots = random.nextInt(10) + 1;
-            int numberofchildpassengers =  random.nextInt(50);
+            int numberofchildpassengers = random.nextInt(50);
             int numberofrequestedbundlesofflowers = random.nextInt(300);
-            TestCase4MOS tc = new TestCase4MOS(aircraftmodel,changeinthenumberofcrewmembers,
-                    newnumberofcrewmembers,changeinthenumberofpilots,newnumberofpilots,numberofchildpassengers,
+            TestCase4MOS tc = new TestCase4MOS(aircraftmodel, changeinthenumberofcrewmembers,
+                    newnumberofcrewmembers, changeinthenumberofpilots, newnumberofpilots, numberofchildpassengers,
                     numberofrequestedbundlesofflowers);
         }
         return testSuite4ACMS.getTestSuite();

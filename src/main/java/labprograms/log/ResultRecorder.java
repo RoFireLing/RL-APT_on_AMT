@@ -2,8 +2,10 @@ package labprograms.log;
 
 import labprograms.constant.Constant;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.*;
-import org.apache.poi.xssf.usermodel.extensions.XSSFCellBorder;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,8 +23,8 @@ public class ResultRecorder {
 
     private static final int ROWS = 33;
     private static final String[] MEASURES = {"F-measure", "F2-measure", "FSelectTime",
-                                              "FGenerateTime", "FExecuteTime", "F2SelectTime",
-                                              "F2GenerateTime", "F2ExecuteTime"};
+            "FGenerateTime", "FExecuteTime", "F2SelectTime",
+            "F2GenerateTime", "F2ExecuteTime"};
     private List<Integer> FArray;
     private List<Integer> F2Array;
 
@@ -54,13 +56,13 @@ public class ResultRecorder {
     private double F2ExecuteVariance;
 
 
-    public void initializeMeasureArray(List<Integer> FArray, List<Integer> F2Array){
+    public void initializeMeasureArray(List<Integer> FArray, List<Integer> F2Array) {
         this.FArray = FArray;
         this.F2Array = F2Array;
     }
 
     public void initializeMeasureAverageAndVariance(double FAverage, double F2Average,
-                                                    double FVariance, double F2Variance){
+                                                    double FVariance, double F2Variance) {
         this.FAverage = FAverage;
         this.F2Average = F2Average;
         this.FVariance = FVariance;
@@ -68,7 +70,7 @@ public class ResultRecorder {
     }
 
     public void getTimeArray(List<Long> FTimeSelectArray, List<Long> FTimeGenerateArray, List<Long> FTimeExecuteArray,
-                             List<Long> F2TimeSelectArray, List<Long> F2TimeGenerateArray, List<Long> F2TimeExecuteArray){
+                             List<Long> F2TimeSelectArray, List<Long> F2TimeGenerateArray, List<Long> F2TimeExecuteArray) {
         this.FTimeSelectArray = FTimeSelectArray;
         this.FTimeGenerateArray = FTimeGenerateArray;
         this.FTimeExecuteArray = FTimeExecuteArray;
@@ -78,7 +80,7 @@ public class ResultRecorder {
     }
 
     public void getTimeAverage(double FSelectAverage, double FGenerateAverage, double FExecuteAverage,
-                               double F2SelectAverage, double F2GenerateAverage, double F2ExecuteAverage){
+                               double F2SelectAverage, double F2GenerateAverage, double F2ExecuteAverage) {
         this.FSelectAverage = FSelectAverage;
         this.FGenerateAverage = FGenerateAverage;
         this.FExecuteAverage = FExecuteAverage;
@@ -88,7 +90,7 @@ public class ResultRecorder {
     }
 
     public void getTimeVariance(double FSelectVariance, double FGenerateVariance, double FExecuteVariance,
-                                double F2SelectVariance, double F2GenerateVariance, double F2ExecuteVariance){
+                                double F2SelectVariance, double F2GenerateVariance, double F2ExecuteVariance) {
         this.FSelectVariance = FSelectVariance;
         this.FGenerateVariance = FGenerateVariance;
         this.FExecuteVariance = FExecuteVariance;
@@ -98,14 +100,13 @@ public class ResultRecorder {
     }
 
 
+    public void writeResult(String fileName, int idVersion) {
 
-    public void writeResult(String fileName, int idVersion){
+        String[] averages = initialAverage(FAverage, F2Average, FSelectAverage, FGenerateAverage, FExecuteAverage,
+                F2SelectAverage, F2GenerateAverage, F2ExecuteAverage);
 
-        String[] averages = initialAverage(FAverage,F2Average,FSelectAverage,FGenerateAverage,FExecuteAverage,
-                                           F2SelectAverage,F2GenerateAverage,F2ExecuteAverage);
-
-        String[] variances = initialVariance(FVariance,F2Variance,FSelectVariance,FGenerateVariance,FExecuteVariance,
-                                            F2SelectVariance,F2GenerateVariance,F2ExecuteVariance);
+        String[] variances = initialVariance(FVariance, F2Variance, FSelectVariance, FGenerateVariance, FExecuteVariance,
+                F2SelectVariance, F2GenerateVariance, F2ExecuteVariance);
 
         String path = Constant.resultPath + separator + fileName;
         Workbook workbook = getworkBook(path);
@@ -116,7 +117,7 @@ public class ResultRecorder {
         //获得文件当前写入的行数
         int currentRows = sheet.getLastRowNum();
 
-        if (currentRows != 0){
+        if (currentRows != 0) {
             currentRows++;
         }
 
@@ -128,19 +129,19 @@ public class ResultRecorder {
             Row tempRow = sheet.createRow(currentRows + i);
             tempRow.setHeightInPoints(30);
             Cell tempCell = tempRow.createCell(0);
-            if (i == 0){
+            if (i == 0) {
                 tempCell.setCellValue("id-version = " + String.valueOf(idVersion));
                 tempCell.setCellStyle(cellStyle);
-            }else if (i == 1){
+            } else if (i == 1) {
                 tempCell.setCellValue("Measure");
                 tempCell.setCellStyle(cellStyle);
-            }else if (i == 2){
+            } else if (i == 2) {
                 tempCell.setCellValue("均值：");
                 tempCell.setCellStyle(cellStyle);
-            }else if (i == 3){
+            } else if (i == 3) {
                 tempCell.setCellValue("方差：");
                 tempCell.setCellStyle(cellStyle);
-            }else {
+            } else {
                 tempCell.setCellValue("repeate-time = " + String.valueOf(i - 3));
                 tempCell.setCellStyle(cellStyle);
             }
@@ -151,28 +152,28 @@ public class ResultRecorder {
 
             Row tempRow = sheet.getRow(currentRows + i);
 
-            if (i == 0){
+            if (i == 0) {
                 for (int j = 0; j < MEASURES.length; j++) {
                     Cell tempCell = tempRow.createCell(j + 1);
                     tempCell.setCellValue(MEASURES[j]);
                     tempCell.setCellStyle(cellStyle);
                 }
-            }else if (i == 1){
+            } else if (i == 1) {
                 for (int j = 0; j < averages.length; j++) {
                     Cell tempCell = tempRow.createCell(j + 1);
                     tempCell.setCellValue(averages[j]);
                     tempCell.setCellStyle(cellStyle);
                 }
-            }else if (i == 2){
+            } else if (i == 2) {
                 for (int j = 0; j < variances.length; j++) {
                     Cell tempCell = tempRow.createCell(j + 1);
                     tempCell.setCellValue(variances[j]);
                     tempCell.setCellStyle(cellStyle);
                 }
-            }else {
+            } else {
                 for (int j = 0; j < MEASURES.length; j++) {
                     Cell tempCell = tempRow.createCell(j + 1);
-                    switch (j){
+                    switch (j) {
                         case 0:
                             tempCell.setCellValue(FArray.get(i - 3));
                             tempCell.setCellStyle(cellStyle);
@@ -221,11 +222,11 @@ public class ResultRecorder {
 
     private String[] initialAverage(double FAverage, double F2Average,
                                     double FSelectTimeAverage, double FGenerateTimeAverage, double FExecuteTimeAverage,
-                                    double F2SelectTimeAverage, double F2GenerateTimeAverage, double F2ExecuteTimeAverage){
+                                    double F2SelectTimeAverage, double F2GenerateTimeAverage, double F2ExecuteTimeAverage) {
 
         String[] averages = {String.valueOf(FAverage), String.valueOf(F2Average),
-                             String.valueOf(FSelectTimeAverage), String.valueOf(FGenerateTimeAverage), String.valueOf(FExecuteTimeAverage),
-                             String.valueOf(F2SelectTimeAverage), String.valueOf(F2GenerateTimeAverage), String.valueOf(F2ExecuteTimeAverage)};
+                String.valueOf(FSelectTimeAverage), String.valueOf(FGenerateTimeAverage), String.valueOf(FExecuteTimeAverage),
+                String.valueOf(F2SelectTimeAverage), String.valueOf(F2GenerateTimeAverage), String.valueOf(F2ExecuteTimeAverage)};
 
         return averages;
     }
@@ -233,7 +234,7 @@ public class ResultRecorder {
 
     private String[] initialVariance(double FVariance, double F2Variance,
                                      double FSelectTimeVariance, double FGenerateTimeVariance, double FExecuteTimeVariance,
-                                     double F2SelectTimeVariance, double F2GenerateTimeVariance, double F2ExecuteTimeVariance){
+                                     double F2SelectTimeVariance, double F2GenerateTimeVariance, double F2ExecuteTimeVariance) {
         String[] variances = {String.valueOf(FVariance), String.valueOf(F2Variance),
                 String.valueOf(FSelectTimeVariance), String.valueOf(FGenerateTimeVariance), String.valueOf(FExecuteTimeVariance),
                 String.valueOf(F2SelectTimeVariance), String.valueOf(F2GenerateTimeVariance), String.valueOf(F2ExecuteTimeVariance)};
@@ -243,19 +244,18 @@ public class ResultRecorder {
     }
 
 
-
-    private Workbook getworkBook(String path){
+    private Workbook getworkBook(String path) {
         File file = new File(path);
         XSSFWorkbook workbook = null;
         FileInputStream fis = null;
-        if (!file.exists()){
+        if (!file.exists()) {
             workbook = new XSSFWorkbook();
             workbook.createSheet();
-        }else {
-            try{
+        } else {
+            try {
                 fis = new FileInputStream(file);
                 workbook = new XSSFWorkbook(fis);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -263,15 +263,15 @@ public class ResultRecorder {
     }
 
 
-    private void writeContent(Workbook workbook, String path){
+    private void writeContent(Workbook workbook, String path) {
         File file = new File(path);
         FileOutputStream fos = null;
 
-        try{
+        try {
             fos = new FileOutputStream(file);
             workbook.write(fos);
             fos.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -279,14 +279,15 @@ public class ResultRecorder {
 
     /**
      * 设置单元格的格式
+     *
      * @param workbook
      * @return
      */
-    private XSSFCellStyle getCellStyle(Workbook workbook){
+    private XSSFCellStyle getCellStyle(Workbook workbook) {
         XSSFCellStyle cellStyle = (XSSFCellStyle) workbook.createCellStyle();
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
-        cellStyle.setFillForegroundColor((short)9);
+        cellStyle.setFillForegroundColor((short) 9);
         XSSFFont font = (XSSFFont) workbook.createFont();
         font.setFontHeightInPoints((short) 9);
         font.setFontName(XSSFFont.DEFAULT_FONT_NAME);

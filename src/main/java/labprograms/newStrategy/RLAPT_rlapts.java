@@ -6,7 +6,6 @@ import labprograms.ERS.sourceCode.ExpenseReimbursementSystem;
 import labprograms.MOS.sourceCode.MSR;
 import labprograms.MOS.sourceCode.MealOrderingSystem;
 import labprograms.constant.Constant;
-import labprograms.log.ResultRecorder;
 import labprograms.method.Methods4Testing;
 import labprograms.mutants.Mutant;
 import labprograms.mutants.UsedMutantsSet;
@@ -106,16 +105,15 @@ public class RLAPT_rlapts implements NewStrategy {
                 if (counter == 1) {
                     partitionIndex = new Random().
                             nextInt(Constant.getPartitionNumber(objectName));
+                    //epsilon greedy策略选择下一分区
+                    nextPartitionIndex = rlapt.nextPartition4RLAPT(objectName, partitionIndex, counter);
                 } else {
-//                    partitionIndex = mapt.nextPartition4MAPT(partitionIndex);
                     partitionIndex = nextPartitionIndex;
+                    nextnextPartitionIndex = nextnextPartitionIndex;
                 }
 
-                //epsilon greedy策略选择下一分区
-                nextPartitionIndex = rlapt.nextPartition4RLAPT(partitionIndex, counter);
-
                 //epsilon greedy策略选择下下分区
-                nextnextPartitionIndex = rlapt.nextPartition4RLAPT(nextPartitionIndex, counter);
+                nextnextPartitionIndex = rlapt.nextPartition4RLAPT(objectName, nextPartitionIndex, counter);
 
                 //选择测试用例
                 String testframesAndMr = testCasesOfPartition.
@@ -378,44 +376,52 @@ public class RLAPT_rlapts implements NewStrategy {
                     }
                 }
                 //根据测试结果调整测试剖面
-//                mapt.adjustMAPT(partitionIndex,partitionIndexOffollowTestCase, isKilledMutants);
-                rlapt.adjustRLAPT_S(partitionIndex, nextPartitionIndex, nextnextPartitionIndex, isKilledMutants);
+                rlapt.adjustRLAPT_S(counter, partitionIndex, nextPartitionIndex, nextnextPartitionIndex, isKilledMutants);
             }
-            measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
-            measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
+            if ((Constant.getMutantsNumber(objectName) == 1 && onceMeasureRecord.getFmeasure() != 0) || onceMeasureRecord.getF2measure() != 0) {
+                measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
+                measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
 
-            //记录相应的测试用例选择、生成和执行的时间
-            timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
-            timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
-            timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
-            timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
-            timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
-            timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+                //记录相应的测试用例选择、生成和执行的时间
+                timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
+                timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
+                timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
+                timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
+                timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
+                timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+            }
+            if (measureRecorder.getFmeasureArray().size() < 30 && i == Constant.repeatNumber - 1) {
+                i--;
+            }
         }
         //记录均值结果方便查看
-        String txtLogName = "RLAPT_rlapts4" + objectName + ".txt";
-        RecordResult.recordResult(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
-                measureRecorder.getAverageF2measure());
+        String txtLogName = "RLAPT_S4" + objectName + ".txt";
+        double FT = timeRecorder.getAverageExecuteFirstTestCaseTime() + timeRecorder.getAverageGenerateFirstTestCaseTime() + timeRecorder.getAverageSelectFirstTestCaseTime();
+        double F2T = timeRecorder.getAverageExecuteSecondTestCaseTime() + timeRecorder.getAverageGenerateSecondTestCaseTime() + timeRecorder.getAverageSelectSecondTestCaseTime();
+        RecordResult.recordResult2(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
+                measureRecorder.getAverageF2measure(), FT, F2T);
+        txtLogName = "RLAPT_S4" + objectName + "_Contents.txt";
+        RecordResult.SpecificResult(txtLogName, repeatTimes, measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray(), timeRecorder.getFirstTotalArray(), timeRecorder.getSecondTotalArray());
 
 //        //记录详细的实验结果
-        ResultRecorder resultRecorder = new ResultRecorder();
-        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
-        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
-                measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
-
-        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
-                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
-                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
-
-        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
-                timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
-                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
-
-        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
-                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
-                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
-
-        String excelLogName = "RLAPT_rlapts4" + objectName + ".xlsx";
-        resultRecorder.writeResult(excelLogName, repeatTimes);
+//        ResultRecorder resultRecorder = new ResultRecorder();
+//        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
+//        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
+//                measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
+//
+//        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
+//                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
+//                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
+//
+//        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
+//                timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
+//                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
+//
+//        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
+//                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
+//                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
+//
+//        String excelLogName = "RLAPT_rlapts4" + objectName + ".xlsx";
+//        resultRecorder.writeResult(excelLogName, repeatTimes);
     }
 }

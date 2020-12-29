@@ -13,21 +13,22 @@ import static java.io.File.separator;
 /**
  * describe:
  * writing test cases to json file
+ *
  * @author phantom
  * @date 2019/04/19
  */
 public class WriteTestCases {
 
-    public void writeTestSuiteToJson(String object, Map<String, Object> testSuite){
+    public void writeTestSuiteToJson(String object, Map<String, Object> testSuite) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append(new JSONObject(testSuite).toJSONString());
         String path = System.getProperty("user.dir") + separator + "src" +
                 separator + "main" + separator + "java" + separator + "labprograms"
-                + separator + "testpool" + separator + "RT_"+ object +"_Test_Suite.json";
+                + separator + "testpool" + separator + "RT_" + object + "_Test_Suite.json";
         File file = new File(path);
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
-        }else {
+        } else {
             try {
                 file.createNewFile();
             } catch (IOException e) {

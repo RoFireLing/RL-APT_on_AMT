@@ -7,7 +7,6 @@ import labprograms.mutants.Mutant;
 import labprograms.mutants.UsedMutantsSet;
 import labprograms.newStrategy.utl.InstantiationTestFrame;
 import labprograms.newStrategy.utl.RLAPT_param;
-import labprograms.result.RecordResult;
 import labprograms.strategies.util.*;
 import labprograms.testCase.TestCase4ACMS;
 
@@ -205,8 +204,8 @@ public class RLAPT_param_select {
         String txtLogName = "param4" + objectName + ".txt";
         double FT = timeRecorder.getAverageExecuteFirstTestCaseTime() + timeRecorder.getAverageGenerateFirstTestCaseTime() + timeRecorder.getAverageSelectFirstTestCaseTime();
         double F2T = timeRecorder.getAverageExecuteSecondTestCaseTime() + timeRecorder.getAverageGenerateSecondTestCaseTime() + timeRecorder.getAverageSelectSecondTestCaseTime();
-        RecordResult.recordResult(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
-                measureRecorder.getAverageF2measure(), FT, F2T, alpha, gamma, r0);
+//        RecordResult.recordResult(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
+//                measureRecorder.getAverageF2measure(), FT, F2T, alpha, gamma, r0);
 
 //        //记录详细的实验结果
 //        ResultRecorder resultRecorder = new ResultRecorder();

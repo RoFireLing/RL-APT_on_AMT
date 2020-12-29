@@ -1,17 +1,28 @@
 package labprograms.testCase;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * describe:
  * test case
+ *
  * @author phantom
  * @date 2019/04/17
  */
 
 public class TestCase4ACMS {
+    private int airClass;
+    private int area;
+    private boolean isStudent;
+    private double luggage;
+    private double economicfee;
+
+    public TestCase4ACMS(int airClass, int area, boolean isStudent, double luggage, double economicfee) {
+        setAirClass(airClass);
+        setArea(area);
+        setLuggage(luggage);
+        setStudent(isStudent);
+        setEconomicfee(economicfee);
+    }
+
     public int getAirClass() {
         return airClass;
     }
@@ -53,7 +64,7 @@ public class TestCase4ACMS {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("airClass =" + String.valueOf(getAirClass()) + " ");
         stringBuffer.append("area =" + String.valueOf(getArea()) + " ");
@@ -62,19 +73,5 @@ public class TestCase4ACMS {
         stringBuffer.append("isStudent =" + String.valueOf(isStudent) + " ");
 
         return stringBuffer.toString();
-    }
-
-    private int airClass;
-    private int area;
-    private boolean isStudent;
-    private double luggage;
-    private double economicfee;
-
-    public TestCase4ACMS(int airClass, int area, boolean isStudent, double luggage, double economicfee){
-        setAirClass(airClass);
-        setArea(area);
-        setLuggage(luggage);
-        setStudent(isStudent);
-        setEconomicfee(economicfee);
     }
 }

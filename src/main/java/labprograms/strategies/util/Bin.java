@@ -5,25 +5,27 @@ import java.util.List;
 
 /**
  * describe:
- *  a data set which record all test cases belonging a same partition
+ * a data set which record all test cases belonging a same partition
+ *
  * @author phantom
  * @date 2019/05/14
  */
 public class Bin {
     List<String> testcases;
-    public Bin(){
+
+    public Bin() {
         testcases = new ArrayList<>();
     }
 
-    public void add(String testcase){
+    public void add(String testcase) {
         testcases.add(testcase);
     }
 
-    public String getTestCase(int index){
+    public String getTestCase(int index) {
         return testcases.get(index);
     }
 
-    public int size(){
+    public int size() {
         return testcases.size();
     }
 

@@ -9,7 +9,6 @@ import labprograms.gethardkilledmutants.MT4MOS;
 import labprograms.method.Methods4Testing;
 import labprograms.mutants.Mutant;
 import labprograms.mutants.UsedMutantsSet;
-import labprograms.result.RecordResult;
 import labprograms.strategies.util.Control;
 import labprograms.strategies.util.TestCasesOfPartition;
 import labprograms.testCase.TestCase4ACMS;
@@ -26,9 +25,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-import static labprograms.strategies.util.CalculateAverage.getAverageTime;
-import static labprograms.strategies.util.CalculateAverage.getAveragemeasure;
-
 /**
  * describe:
  *
@@ -37,56 +33,71 @@ import static labprograms.strategies.util.CalculateAverage.getAveragemeasure;
  */
 public class DMTwithRAPTandPB {
 
-    private static final int[] pun4ACMS = {79,73,67,60,96,84,29,23};
-    private static final int[] pun4CUBS = {50,5,43};
-    private static final int[] pun4ERS = {91,89,88,126,62,39,39,51,55,52,35,53};
-    private static final int[] pun4MOS = {390,298,403,261,403,217,226,84,132,21};
+    private static final int[] pun4ACMS = {79, 73, 67, 60, 96, 84, 29, 23};
+    private static final int[] pun4CUBS = {50, 5, 43};
+    private static final int[] pun4ERS = {91, 89, 88, 126, 62, 39, 39, 51, 55, 52, 35, 53};
+    private static final int[] pun4MOS = {390, 298, 403, 261, 403, 217, 226, 84, 132, 21};
 
 
-    /**the test profile of RAPT*/
+    /**
+     * the test profile of RAPT
+     */
     private double[] RAPT;
 
     private double RAPT_epsilon = 0.05;
 
     private double RAPT_delta;
 
-    /**the factor of reward*/
+    /**
+     * the factor of reward
+     */
     private int[] rew;
 
-    /**the factor of punishment*/
+    /**
+     * the factor of punishment
+     */
     private int[] bou;
 
     private int[] pun;
+
+    public static void main(String[] args) {
+        DMTwithRAPTandPB dmTwithRAPTandPB = new DMTwithRAPTandPB();
+//        String[] names = {"CUBS", "ERS", "MOS"};
+        String[] names = {"ERS"};
+        for (int i = 0; i < 20; i++) {
+            for (String name : names) {
+                dmTwithRAPTandPB.RAPTwithPBSelectMR(name);
+            }
+        }
+    }
 
     public void setRAPT_delta(double RAPT_delta) {
         this.RAPT_delta = RAPT_delta;
     }
 
-
-
-    public void setBou_RAPT(String objectName, int[] punArray){
-        if (objectName.equals("ACMS")){
+    public void setBou_RAPT(String objectName, int[] punArray) {
+        if (objectName.equals("ACMS")) {
             rew = new int[8];
             pun = new int[8];
             bou = new int[8];
             for (int i = 0; i < punArray.length; i++) {
                 bou[i] = punArray[i];
             }
-        }else if(objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             rew = new int[3];
             pun = new int[3];
             bou = new int[3];
             for (int i = 0; i < punArray.length; i++) {
                 bou[i] = punArray[i];
             }
-        }else if(objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             rew = new int[12];
             pun = new int[12];
             bou = new int[12];
             for (int i = 0; i < punArray.length; i++) {
                 bou[i] = punArray[i];
             }
-        }else {
+        } else {
             rew = new int[10];
             pun = new int[10];
             bou = new int[10];
@@ -99,9 +110,10 @@ public class DMTwithRAPTandPB {
 
     /**
      * initialize the test profile of RAPT
+     *
      * @param numberOfPartitions the number of partitions
      */
-    private void initializeRAPT(int numberOfPartitions){
+    private void initializeRAPT(int numberOfPartitions) {
         RAPT = new double[numberOfPartitions];
         for (int i = 0; i < RAPT.length; i++) {
             RAPT[i] = 1.0 / numberOfPartitions;
@@ -112,21 +124,22 @@ public class DMTwithRAPTandPB {
     /**
      * get a index of partition
      * Note that the first number of partitions is 0
+     *
      * @return the index
      */
-    private int nextPartition4RAPT(){
+    private int nextPartition4RAPT() {
         boolean flag = false;
         int partitionindex = 0;
         for (int i = 0; i < rew.length; i++) {
-            if (rew[i] > 0){
+            if (rew[i] > 0) {
                 flag = true;
                 partitionindex = i;
                 break;
             }
         }
-        if (flag){
+        if (flag) {
             return partitionindex;
-        }else {
+        } else {
             int index = -1;
             double randomNumber = new Random().nextDouble();
             double sum = 0;
@@ -140,56 +153,57 @@ public class DMTwithRAPTandPB {
 
     /**
      * adjust the test profile for RAPT testing
+     *
      * @param
      * @param isKilledMutant
      */
     private void adjustRAPT(int formersourcePartitionIndex,
                             int formerfollowUpPartitionIndex,
-                            boolean isKilledMutant){
+                            boolean isKilledMutant) {
         double old_i = RAPT[formersourcePartitionIndex];
         double old_f = RAPT[formerfollowUpPartitionIndex];
 
-        if (formersourcePartitionIndex == formerfollowUpPartitionIndex){
-            if (isKilledMutant){
+        if (formersourcePartitionIndex == formerfollowUpPartitionIndex) {
+            if (isKilledMutant) {
                 double sum = 0;
                 for (int i = 0; i < RAPT.length; i++) {
-                    if (i != formersourcePartitionIndex){
+                    if (i != formersourcePartitionIndex) {
                         RAPT[i] -= (1 + Math.log(rew[formersourcePartitionIndex]))
                                 * RAPT_epsilon / (RAPT.length - 1);
-                        if (RAPT[i] < 0){
+                        if (RAPT[i] < 0) {
                             RAPT[i] = 0;
                         }
                     }
                     sum += RAPT[i];
                 }
                 RAPT[formersourcePartitionIndex] = 1 - sum;
-            }else {
+            } else {
                 for (int i = 0; i < RAPT.length; i++) {
-                    if (i == formersourcePartitionIndex){
-                        if (old_i >= RAPT_delta){
+                    if (i == formersourcePartitionIndex) {
+                        if (old_i >= RAPT_delta) {
                             RAPT[i] -= RAPT_delta;
                         }
-                        if (old_i < RAPT_delta || bou[i] == pun[i]){
+                        if (old_i < RAPT_delta || bou[i] == pun[i]) {
                             RAPT[i] = 0;
                         }
-                    }else {
-                        if (old_i >= RAPT_delta){
+                    } else {
+                        if (old_i >= RAPT_delta) {
                             RAPT[i] += RAPT_delta / (RAPT.length - 1);
                         }
-                        if (old_i < RAPT_delta || bou[i] == pun[i]){
+                        if (old_i < RAPT_delta || bou[i] == pun[i]) {
                             RAPT[i] += old_i / (RAPT.length - 1);
                         }
                     }
                 }
             }
-        }else { // not belong to the same partition
-            if (isKilledMutant){
+        } else { // not belong to the same partition
+            if (isKilledMutant) {
                 double sum = 0;
                 for (int i = 0; i < RAPT.length; i++) {
-                    if (i != formersourcePartitionIndex &&i != formerfollowUpPartitionIndex){
-                        if (RAPT[i] > (RAPT_epsilon *(1 + Math.log(rew[i])) / (RAPT.length - 2))){
-                            RAPT[i] -= RAPT_epsilon *(1 + Math.log(rew[i])) / (RAPT.length - 2);
-                        }else {
+                    if (i != formersourcePartitionIndex && i != formerfollowUpPartitionIndex) {
+                        if (RAPT[i] > (RAPT_epsilon * (1 + Math.log(rew[i])) / (RAPT.length - 2))) {
+                            RAPT[i] -= RAPT_epsilon * (1 + Math.log(rew[i])) / (RAPT.length - 2);
+                        } else {
                             RAPT[i] = 0;
                         }
                     }
@@ -197,29 +211,29 @@ public class DMTwithRAPTandPB {
                 }
                 RAPT[formersourcePartitionIndex] = old_i + ((1 - sum) - old_i - old_f) / 2;
                 RAPT[formerfollowUpPartitionIndex] = old_f + ((1 - sum) - old_f - old_i) / 2;
-            }else { // not reveal a mutant
-                if (old_i > RAPT_delta){
+            } else { // not reveal a mutant
+                if (old_i > RAPT_delta) {
                     RAPT[formersourcePartitionIndex] = old_i - RAPT_delta;
                 }
-                if (old_i <= RAPT_delta || pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]){
+                if (old_i <= RAPT_delta || pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]) {
                     RAPT[formersourcePartitionIndex] = 0;
-                    if(pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]){
+                    if (pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]) {
                         pun[formersourcePartitionIndex] = 0;
                     }
                 }
-                if (old_f > RAPT_delta){
+                if (old_f > RAPT_delta) {
                     RAPT[formerfollowUpPartitionIndex] = old_f - RAPT_delta;
                 }
-                if (old_f <= RAPT_delta || pun[formerfollowUpPartitionIndex] == bou[formerfollowUpPartitionIndex]){
+                if (old_f <= RAPT_delta || pun[formerfollowUpPartitionIndex] == bou[formerfollowUpPartitionIndex]) {
                     RAPT[formerfollowUpPartitionIndex] = 0;
-                    if(pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]){
+                    if (pun[formersourcePartitionIndex] == bou[formersourcePartitionIndex]) {
                         pun[formersourcePartitionIndex] = 0;
                     }
                 }
 
                 for (int i = 0; i < RAPT.length; i++) {
-                    if (i != formersourcePartitionIndex && i != formerfollowUpPartitionIndex){
-                        RAPT[i] += (( old_i - RAPT[formersourcePartitionIndex]) +
+                    if (i != formersourcePartitionIndex && i != formerfollowUpPartitionIndex) {
+                        RAPT[i] += ((old_i - RAPT[formersourcePartitionIndex]) +
                                 (old_f - RAPT[formerfollowUpPartitionIndex])) / (RAPT.length - 2);
                     }
                 }
@@ -229,34 +243,18 @@ public class DMTwithRAPTandPB {
     }
 
     private Object getTestCase(String objectName, String testframe) {
-        if (objectName.equals("ACMS")){
+        if (objectName.equals("ACMS")) {
             TestCase4ACMS tc = new MT4ACMS().generateTestCase(testframe);
             return tc;
-        }else if (objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             TestCase4CUBS tc = new MT4CUBS().generateTestCase(testframe);
             return tc;
-        }else if (objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             TestCase4ERS tc = new MT4ERS().generateTestCase(testframe);
             return tc;
-        }else {
+        } else {
             TestCase4MOS tc = new MT4MOS().generateTestCase(testframe);
             return tc;
-        }
-    }
-
-    private void setParameters4RAPT(String objectName){
-        if (objectName.equals("ACMS")){
-            setRAPT_delta(0.01718312324929972);
-            setBou_RAPT(objectName,pun4ACMS);
-        }else if (objectName.equals("CUBS")){
-            setRAPT_delta(0.013619282726462319);
-            setBou_RAPT(objectName,pun4CUBS);
-        }else if (objectName.equals("ERS")){
-            setRAPT_delta(0.019839685749552596);
-            setBou_RAPT(objectName,pun4ERS);
-        }else {
-            setRAPT_delta(0.009424821887743086);
-            setBou_RAPT(objectName,pun4MOS);
         }
     }
 
@@ -749,7 +747,23 @@ public class DMTwithRAPTandPB {
 //                getAverageTime(allgenerateTestCaseArray), getAverageTime(allExecuteTestCaseArray));
 //    }
 
-    public void RAPTwithPBSelectMR(String objectName){
+    private void setParameters4RAPT(String objectName) {
+        if (objectName.equals("ACMS")) {
+            setRAPT_delta(0.01718312324929972);
+            setBou_RAPT(objectName, pun4ACMS);
+        } else if (objectName.equals("CUBS")) {
+            setRAPT_delta(0.013619282726462319);
+            setBou_RAPT(objectName, pun4CUBS);
+        } else if (objectName.equals("ERS")) {
+            setRAPT_delta(0.019839685749552596);
+            setBou_RAPT(objectName, pun4ERS);
+        } else {
+            setRAPT_delta(0.009424821887743086);
+            setBou_RAPT(objectName, pun4MOS);
+        }
+    }
+
+    public void RAPTwithPBSelectMR(String objectName) {
 
         TestCasesOfPartition testCasesOfPartition = new TestCasesOfPartition(objectName);
 
@@ -780,16 +794,16 @@ public class DMTwithRAPTandPB {
 
         int numberOfMr = 0;
         String path = "";
-        if (objectName.equals("ACMS")){
+        if (objectName.equals("ACMS")) {
             numberOfMr = Constant.numberofMr4ACMS;
             path = Constant.mrPath4ACMS;
-        } else if (objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             numberOfMr = Constant.numberofMr4CUBS;
             path = Constant.mrPath4CUBS;
-        }else if (objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             numberOfMr = Constant.numberofMr4ERS;
             path = Constant.mrPath4ERS;
-        }else {
+        } else {
             numberOfMr = Constant.numberofMr4MOS;
             path = Constant.mrPath4MOS;
         }
@@ -797,12 +811,12 @@ public class DMTwithRAPTandPB {
 
         BufferedReader bufferedReader = null;
 
-        Map<String,String> mrInfo = new HashMap<>();
+        Map<String, String> mrInfo = new HashMap<>();
         try {
             bufferedReader = new BufferedReader(new FileReader(path));
             String tempStr = "";
             int tempInteger = 1;
-            while((tempStr = bufferedReader.readLine()) != null){
+            while ((tempStr = bufferedReader.readLine()) != null) {
                 mrInfo.put(String.valueOf(tempInteger), tempStr);
                 tempInteger++;
             }
@@ -814,7 +828,7 @@ public class DMTwithRAPTandPB {
 
         for (int i = 0; i < Constant.repeatNumber; i++) {
             setParameters4RAPT(objectName);
-            System.out.println("DMT4" + objectName + "使用RAPT+PB:" + "执行第"+ String.valueOf(i + 1) + "次测试：" );
+            System.out.println("DMT4" + objectName + "使用RAPT+PB:" + "执行第" + String.valueOf(i + 1) + "次测试：");
             //初始化测试剖面
             initializeRAPT(Constant.getPartitionNumber(objectName));
 
@@ -864,7 +878,7 @@ public class DMTwithRAPTandPB {
                 testframesAndMr = testCasesOfPartition.
                         getSourceFollowAndMR(partitionIndex);
                 long endSelectTestCase = System.nanoTime();
-                if (killedMutants.size() == 0){
+                if (killedMutants.size() == 0) {
                     firstSelectingTime += (endSelectTestCase - startSelectTestCase);
                 }
                 allSelectingTime += (endSelectTestCase - startSelectTestCase);
@@ -872,9 +886,9 @@ public class DMTwithRAPTandPB {
                 sourceTestFrame = testframesAndMr.split(";")[0];
                 testframesAndMr = control.PBMRGetMR(partitionIndex, sourceTestFrame);
                 followTestFrame = testframesAndMr.split(";")[1];
-                if (!objectName.equals("MOS")){
+                if (!objectName.equals("MOS")) {
                     MR = testframesAndMr.split(";")[2];
-                }else {
+                } else {
                     String tempStr = "";
                     for (int z = 2; z < testframesAndMr.split(";").length; z++) {
                         tempStr += testframesAndMr.split(";")[z] + ";";
@@ -883,16 +897,16 @@ public class DMTwithRAPTandPB {
                     MR = MR.substring(0, MR.length() - 1);
 
                     String[] choice = MR.split(";");
-                    MR = choice[0] +";" + choice[1]+";" + choice[2]+";" + choice[3]+";"
-                            + choice[5]+";" + choice[6]+";" + choice[7];
+                    MR = choice[0] + ";" + choice[1] + ";" + choice[2] + ";" + choice[3] + ";"
+                            + choice[5] + ";" + choice[6] + ";" + choice[7];
                 }
 
                 int partitionIndexOffollowTestCase = control.
                         judgeThePartitionOfFollowTestFrame(objectName, followTestFrame);
                 boolean isKilledMutants = false;
-                for (Map.Entry<String, Mutant> entry : mutantMap.entrySet()){
+                for (Map.Entry<String, Mutant> entry : mutantMap.entrySet()) {
 
-                    if (killedMutants.contains(entry.getKey())){
+                    if (killedMutants.contains(entry.getKey())) {
                         continue;
                     }
                     Mutant mutant = entry.getValue();
@@ -903,19 +917,19 @@ public class DMTwithRAPTandPB {
                         mutantClazz = Class.forName(mutant.getFullName());
                         Constructor mutantConstructor = mutantClazz.getConstructor();
                         mutantInstance = mutantConstructor.newInstance();
-                        if (objectName.equals("ACMS")){
+                        if (objectName.equals("ACMS")) {
                             double sourceResult = 0;
                             double followUpResult = 0;
                             mutantMethod = mutantClazz.getMethod(methodName, int.class, int.class,
                                     boolean.class, double.class, double.class);
                             // generate source test case and follow-up test case
                             long startGenerateTestCase = System.nanoTime();
-                            Object stc = getTestCase(objectName,sourceTestFrame);
-                            Object ftc = getTestCase(objectName,followTestFrame);
+                            Object stc = getTestCase(objectName, sourceTestFrame);
+                            Object ftc = getTestCase(objectName, followTestFrame);
                             TestCase4ACMS sourceTestCase = (TestCase4ACMS) stc;
                             TestCase4ACMS followUpTestCase = (TestCase4ACMS) ftc;
                             long endGenerateTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 firstGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
                             }
                             allGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
@@ -924,53 +938,53 @@ public class DMTwithRAPTandPB {
                             //execute source test case and follow-up test case on all mutants
                             long startExecuteTestCase = System.nanoTime();
                             sourceResult = (double) mutantMethod.invoke(mutantInstance,
-                                    sourceTestCase.getAirClass(),sourceTestCase.getArea(),
-                                    sourceTestCase.isStudent(),sourceTestCase.getLuggage(),
+                                    sourceTestCase.getAirClass(), sourceTestCase.getArea(),
+                                    sourceTestCase.isStudent(), sourceTestCase.getLuggage(),
                                     sourceTestCase.getEconomicfee());
 
                             followUpResult = (double) mutantMethod.invoke(mutantInstance,
-                                    followUpTestCase.getAirClass(),followUpTestCase.getArea(),
-                                    followUpTestCase.isStudent(),followUpTestCase.getLuggage(),
+                                    followUpTestCase.getAirClass(), followUpTestCase.getArea(),
+                                    followUpTestCase.isStudent(), followUpTestCase.getLuggage(),
                                     followUpTestCase.getEconomicfee());
                             long endExecuteTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 firstExecutingTime += (endExecuteTestCase - startExecuteTestCase);
                             }
                             allExecutingTime += (endExecuteTestCase - startExecuteTestCase);
 
-                            if (MR.equals("The output will not change") && sourceResult != followUpResult){
+                            if (MR.equals("The output will not change") && sourceResult != followUpResult) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
                             }
 
-                            if (MR.equals("The output will increase") && sourceResult >= followUpResult){
+                            if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
                             }
-                        } else if (objectName.equals("CUBS")){
+                        } else if (objectName.equals("CUBS")) {
                             double sourceResult = 0;
                             double followUpResult = 0;
                             mutantMethod = mutantClazz.getMethod(methodName, String.class, int.class,
                                     int.class, int.class);
                             long startGenerateTestCase = System.nanoTime();
-                            Object stc = getTestCase(objectName,sourceTestFrame);
-                            Object ftc = getTestCase(objectName,followTestFrame);
+                            Object stc = getTestCase(objectName, sourceTestFrame);
+                            Object ftc = getTestCase(objectName, followTestFrame);
                             TestCase4CUBS sourceTestCase = (TestCase4CUBS) stc;
                             TestCase4CUBS followUpTestCase = (TestCase4CUBS) ftc;
                             long endGenerateTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 firstGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
                             }
                             allGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
@@ -980,87 +994,22 @@ public class DMTwithRAPTandPB {
                             long startExecuteTestCase = System.nanoTime();
                             sourceResult = (double) mutantMethod.invoke(mutantInstance,
                                     sourceTestCase.getPlanType(),
-                                    sourceTestCase.getPlanFee(), sourceTestCase.getTalkTime(),sourceTestCase.getFlow());
+                                    sourceTestCase.getPlanFee(), sourceTestCase.getTalkTime(), sourceTestCase.getFlow());
 
                             followUpResult = (double) mutantMethod.invoke(mutantInstance,
                                     followUpTestCase.getPlanType(),
-                                    followUpTestCase.getPlanFee(), followUpTestCase.getTalkTime(),followUpTestCase.getFlow());
+                                    followUpTestCase.getPlanFee(), followUpTestCase.getTalkTime(), followUpTestCase.getFlow());
                             long endExecuteTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
-                                firstExecutingTime += (endExecuteTestCase - startExecuteTestCase);
-                            }
-                            allExecutingTime += (endExecuteTestCase - startExecuteTestCase);
-                            if (MR.equals("The output will not change") && sourceResult != followUpResult){
-                                isKilledMutants = true;
-                                if (killedMutants.size() == 0){
-                                    Fmeasure = counter;
-                                }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
-                                    Tmeasure = counter;
-                                }
-                                killedMutants.add(entry.getKey());
-                            }
-
-                            if (MR.equals("The output will increase") && sourceResult >= followUpResult){
-                                isKilledMutants = true;
-                                if (killedMutants.size() == 0){
-                                    Fmeasure = counter;
-                                }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
-                                    Tmeasure = counter;
-                                }
-                                killedMutants.add(entry.getKey());
-                            }
-
-                            if (MR.equals("The output will decrease") && sourceResult <= followUpResult){
-                                isKilledMutants = true;
-                                if (killedMutants.size() == 0){
-                                    Fmeasure = counter;
-                                }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
-                                    Tmeasure = counter;
-                                }
-                                killedMutants.add(entry.getKey());
-                            }
-
-
-                        }else if (objectName.equals("ERS")){
-                            double sourceResult = 0;
-                            double followUpResult = 0;
-                            mutantMethod = mutantClazz.getMethod(methodName, String.class, double.class,
-                                    double.class, double.class, double.class);
-                            long startGenerateTestCase = System.nanoTime();
-                            Object stc = getTestCase(objectName,sourceTestFrame);
-                            Object ftc = getTestCase(objectName,followTestFrame);
-                            TestCase4ERS sourceTestCase = (TestCase4ERS) stc;
-                            TestCase4ERS followUpTestCase = (TestCase4ERS) ftc;
-                            long endGenerateTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
-                                firstGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
-                            }
-                            allGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
-
-
-                            //execute source test case and follow-up test case on all mutants
-                            long startExecuteTestCase = System.nanoTime();
-                            sourceResult = (double) mutantMethod.invoke(mutantInstance,sourceTestCase.getStafflevel(),
-                                    sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
-                                    sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
-
-                            followUpResult = (double) mutantMethod.invoke(mutantInstance,followUpTestCase.getStafflevel(),
-                                    sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
-                                    sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
-                            long endExecuteTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 firstExecutingTime += (endExecuteTestCase - startExecuteTestCase);
                             }
                             allExecutingTime += (endExecuteTestCase - startExecuteTestCase);
                             if (MR.equals("The output will not change") && sourceResult != followUpResult) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
@@ -1068,10 +1017,10 @@ public class DMTwithRAPTandPB {
 
                             if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
@@ -1079,29 +1028,28 @@ public class DMTwithRAPTandPB {
 
                             if (MR.equals("The output will decrease") && sourceResult <= followUpResult) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
                             }
 
 
-                        }else {
-                            MSR sourceResult = null;
-                            MSR followUpResult = null;
-                            mutantMethod = mutantClazz.getMethod(methodName, String.class, String.class, int.class,
-                                    String.class,int.class,int.class,int.class);
-
+                        } else if (objectName.equals("ERS")) {
+                            double sourceResult = 0;
+                            double followUpResult = 0;
+                            mutantMethod = mutantClazz.getMethod(methodName, String.class, double.class,
+                                    double.class, double.class, double.class);
                             long startGenerateTestCase = System.nanoTime();
-                            Object stc = getTestCase(objectName,sourceTestFrame);
-                            Object ftc = getTestCase(objectName,followTestFrame);
-                            TestCase4MOS sourceTestCase = (TestCase4MOS) stc;
-                            TestCase4MOS followUpTestCase = (TestCase4MOS) ftc;
+                            Object stc = getTestCase(objectName, sourceTestFrame);
+                            Object ftc = getTestCase(objectName, followTestFrame);
+                            TestCase4ERS sourceTestCase = (TestCase4ERS) stc;
+                            TestCase4ERS followUpTestCase = (TestCase4ERS) ftc;
                             long endGenerateTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
                                 firstGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
                             }
                             allGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
@@ -1109,17 +1057,83 @@ public class DMTwithRAPTandPB {
 
                             //execute source test case and follow-up test case on all mutants
                             long startExecuteTestCase = System.nanoTime();
-                            sourceResult = (MSR) mutantMethod.invoke(mutantInstance,sourceTestCase.getAircraftmodel(),
-                                    sourceTestCase.getChangeinthenumberofcrewmembers(),sourceTestCase.getNewnumberofcrewmembers(),
-                                    sourceTestCase.getChangeinthenumberofpilots(),sourceTestCase.getNewnumberofpilots(),
-                                    sourceTestCase.getNumberofchildpassengers(),sourceTestCase.getNumberofrequestedbundlesofflowers());
+                            sourceResult = (double) mutantMethod.invoke(mutantInstance, sourceTestCase.getStafflevel(),
+                                    sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
+                                    sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
 
-                            followUpResult = (MSR) mutantMethod.invoke(mutantInstance,followUpTestCase.getAircraftmodel(),
-                                    followUpTestCase.getChangeinthenumberofcrewmembers(),followUpTestCase.getNewnumberofcrewmembers(),
-                                    followUpTestCase.getChangeinthenumberofpilots(),followUpTestCase.getNewnumberofpilots(),
-                                    followUpTestCase.getNumberofchildpassengers(),followUpTestCase.getNumberofrequestedbundlesofflowers());
+                            followUpResult = (double) mutantMethod.invoke(mutantInstance, followUpTestCase.getStafflevel(),
+                                    sourceTestCase.getActualmonthlymileage(), sourceTestCase.getMonthlysalesamount(),
+                                    sourceTestCase.getAirfareamount(), sourceTestCase.getOtherexpensesamount());
                             long endExecuteTestCase = System.nanoTime();
-                            if (killedMutants.size() == 0){
+                            if (killedMutants.size() == 0) {
+                                firstExecutingTime += (endExecuteTestCase - startExecuteTestCase);
+                            }
+                            allExecutingTime += (endExecuteTestCase - startExecuteTestCase);
+                            if (MR.equals("The output will not change") && sourceResult != followUpResult) {
+                                isKilledMutants = true;
+                                if (killedMutants.size() == 0) {
+                                    Fmeasure = counter;
+                                }
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
+                                    Tmeasure = counter;
+                                }
+                                killedMutants.add(entry.getKey());
+                            }
+
+                            if (MR.equals("The output will increase") && sourceResult >= followUpResult) {
+                                isKilledMutants = true;
+                                if (killedMutants.size() == 0) {
+                                    Fmeasure = counter;
+                                }
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
+                                    Tmeasure = counter;
+                                }
+                                killedMutants.add(entry.getKey());
+                            }
+
+                            if (MR.equals("The output will decrease") && sourceResult <= followUpResult) {
+                                isKilledMutants = true;
+                                if (killedMutants.size() == 0) {
+                                    Fmeasure = counter;
+                                }
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
+                                    Tmeasure = counter;
+                                }
+                                killedMutants.add(entry.getKey());
+                            }
+
+
+                        } else {
+                            MSR sourceResult = null;
+                            MSR followUpResult = null;
+                            mutantMethod = mutantClazz.getMethod(methodName, String.class, String.class, int.class,
+                                    String.class, int.class, int.class, int.class);
+
+                            long startGenerateTestCase = System.nanoTime();
+                            Object stc = getTestCase(objectName, sourceTestFrame);
+                            Object ftc = getTestCase(objectName, followTestFrame);
+                            TestCase4MOS sourceTestCase = (TestCase4MOS) stc;
+                            TestCase4MOS followUpTestCase = (TestCase4MOS) ftc;
+                            long endGenerateTestCase = System.nanoTime();
+                            if (killedMutants.size() == 0) {
+                                firstGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
+                            }
+                            allGeneratingTime += (endGenerateTestCase - startGenerateTestCase);
+
+
+                            //execute source test case and follow-up test case on all mutants
+                            long startExecuteTestCase = System.nanoTime();
+                            sourceResult = (MSR) mutantMethod.invoke(mutantInstance, sourceTestCase.getAircraftmodel(),
+                                    sourceTestCase.getChangeinthenumberofcrewmembers(), sourceTestCase.getNewnumberofcrewmembers(),
+                                    sourceTestCase.getChangeinthenumberofpilots(), sourceTestCase.getNewnumberofpilots(),
+                                    sourceTestCase.getNumberofchildpassengers(), sourceTestCase.getNumberofrequestedbundlesofflowers());
+
+                            followUpResult = (MSR) mutantMethod.invoke(mutantInstance, followUpTestCase.getAircraftmodel(),
+                                    followUpTestCase.getChangeinthenumberofcrewmembers(), followUpTestCase.getNewnumberofcrewmembers(),
+                                    followUpTestCase.getChangeinthenumberofpilots(), followUpTestCase.getNewnumberofpilots(),
+                                    followUpTestCase.getNumberofchildpassengers(), followUpTestCase.getNumberofrequestedbundlesofflowers());
+                            long endExecuteTestCase = System.nanoTime();
+                            if (killedMutants.size() == 0) {
                                 firstExecutingTime += (endExecuteTestCase - startExecuteTestCase);
                             }
                             allExecutingTime += (endExecuteTestCase - startExecuteTestCase);
@@ -1128,68 +1142,68 @@ public class DMTwithRAPTandPB {
                             String resultRelation = "";
 
 
-                            if (sourceResult.numberOfMealsForCrewMembers == followUpResult.numberOfMealsForCrewMembers){
+                            if (sourceResult.numberOfMealsForCrewMembers == followUpResult.numberOfMealsForCrewMembers) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfMealsForCrewMembers > followUpResult.numberOfMealsForCrewMembers){
+                            } else if (sourceResult.numberOfMealsForCrewMembers > followUpResult.numberOfMealsForCrewMembers) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfMealsForPilots == followUpResult.numberOfMealsForPilots){
+                            if (sourceResult.numberOfMealsForPilots == followUpResult.numberOfMealsForPilots) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfMealsForPilots > followUpResult.numberOfMealsForPilots){
+                            } else if (sourceResult.numberOfMealsForPilots > followUpResult.numberOfMealsForPilots) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfChildMeals == followUpResult.numberOfChildMeals){
+                            if (sourceResult.numberOfChildMeals == followUpResult.numberOfChildMeals) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfChildMeals > followUpResult.numberOfChildMeals){
+                            } else if (sourceResult.numberOfChildMeals > followUpResult.numberOfChildMeals) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfBundlesOfFlowers == followUpResult.numberOfBundlesOfFlowers){
+                            if (sourceResult.numberOfBundlesOfFlowers == followUpResult.numberOfBundlesOfFlowers) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfBundlesOfFlowers > followUpResult.numberOfBundlesOfFlowers){
+                            } else if (sourceResult.numberOfBundlesOfFlowers > followUpResult.numberOfBundlesOfFlowers) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfFirstClassMeals == followUpResult.numberOfFirstClassMeals){
+                            if (sourceResult.numberOfFirstClassMeals == followUpResult.numberOfFirstClassMeals) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfFirstClassMeals > followUpResult.numberOfFirstClassMeals){
+                            } else if (sourceResult.numberOfFirstClassMeals > followUpResult.numberOfFirstClassMeals) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfBusinessClassMeals == followUpResult.numberOfBusinessClassMeals){
+                            if (sourceResult.numberOfBusinessClassMeals == followUpResult.numberOfBusinessClassMeals) {
                                 resultRelation += "do not change;";
-                            }else if (sourceResult.numberOfBusinessClassMeals > followUpResult.numberOfBusinessClassMeals){
+                            } else if (sourceResult.numberOfBusinessClassMeals > followUpResult.numberOfBusinessClassMeals) {
                                 resultRelation += "decrease;";
-                            }else {
+                            } else {
                                 resultRelation += "increase;";
                             }
 
-                            if (sourceResult.numberOfEconomicClassMeals == followUpResult.numberOfEconomicClassMeals){
+                            if (sourceResult.numberOfEconomicClassMeals == followUpResult.numberOfEconomicClassMeals) {
                                 resultRelation += "do not change";
-                            }else if (sourceResult.numberOfEconomicClassMeals > followUpResult.numberOfEconomicClassMeals){
+                            } else if (sourceResult.numberOfEconomicClassMeals > followUpResult.numberOfEconomicClassMeals) {
                                 resultRelation += "decrease";
-                            }else {
+                            } else {
                                 resultRelation += "increase";
                             }
 
-                            if (!MR.equals(resultRelation)){
+                            if (!MR.equals(resultRelation)) {
                                 isKilledMutants = true;
-                                if (killedMutants.size() == 0){
+                                if (killedMutants.size() == 0) {
                                     Fmeasure = counter;
                                 }
-                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1){
+                                if (killedMutants.size() == Constant.getMutantsNumber(objectName) - 1) {
                                     Tmeasure = counter;
                                 }
                                 killedMutants.add(entry.getKey());
@@ -1209,8 +1223,8 @@ public class DMTwithRAPTandPB {
                         e.printStackTrace();
                     }
                 }//mutants
-                adjustRAPT(partitionIndex,partitionIndexOffollowTestCase, isKilledMutants);
-                if (killedMutants.size() == Constant.getMutantsNumber(objectName)){
+                adjustRAPT(partitionIndex, partitionIndexOffollowTestCase, isKilledMutants);
+                if (killedMutants.size() == Constant.getMutantsNumber(objectName)) {
                     break;
                 }
             }
@@ -1228,17 +1242,6 @@ public class DMTwithRAPTandPB {
         }
 
 
-    }
-
-    public static void main(String[] args) {
-        DMTwithRAPTandPB dmTwithRAPTandPB = new DMTwithRAPTandPB();
-//        String[] names = {"CUBS", "ERS", "MOS"};
-        String[] names = {"ERS"};
-        for (int i = 0; i < 20; i++) {
-            for (String name : names){
-                dmTwithRAPTandPB.RAPTwithPBSelectMR(name);
-            }
-        }
     }
 
 }

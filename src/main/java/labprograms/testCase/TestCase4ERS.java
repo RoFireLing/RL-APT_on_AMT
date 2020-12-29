@@ -1,12 +1,9 @@
 package labprograms.testCase;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * describe:
  * test case
+ *
  * @author phantom
  * @date 2019/04/17
  */
@@ -19,7 +16,7 @@ public class TestCase4ERS {
     private double otherexpensesamount;
 
     public TestCase4ERS(String stafflevel, double actualmonthlymileage, double monthlysalesamount,
-                        double airfareamount, double otherexpensesamount){
+                        double airfareamount, double otherexpensesamount) {
         setStafflevel(stafflevel);
         setActualmonthlymileage(actualmonthlymileage);
         setMonthlysalesamount(monthlysalesamount);

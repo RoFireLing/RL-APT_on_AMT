@@ -2,12 +2,9 @@ package labprograms.mutants;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static java.io.File.separator;
@@ -35,35 +32,37 @@ public class MutantsSet {
     @Setter
     private Map<String, Mutant> mutants;
 
-    public MutantsSet(String objectName){
+    public MutantsSet(String objectName) {
         setObjectName(objectName);
         mutants = new HashMap<>();
-        mutants_dir = PARENT_DIR + this.objectName +  ".mutants.";
+        mutants_dir = PARENT_DIR + this.objectName + ".mutants.";
         dir = System.getProperty("user.dir") + separator + "src" + separator + "main" +
                 separator + "java" + separator + "labprograms" + separator + objectName
                 + separator + "mutants";
         putMap();
     }
-    public Map<String, Mutant> getMutants(){
+
+    public static void main(String[] args) {
+        MutantsSet mutantsSet = new MutantsSet("ACMS");
+        System.out.println(mutantsSet.getMutants().get("SDL_8").getFullName());
+    }
+
+    public Map<String, Mutant> getMutants() {
         File dir = new File(this.dir);
         String[] mutantNames = dir.list();
-        for (String mutantName : mutantNames){
-            String fullName = mutants_dir + mutantName + "."+  map.get(objectName).toString();
+        for (String mutantName : mutantNames) {
+            String fullName = mutants_dir + mutantName + "." + map.get(objectName).toString();
             Mutant mutant = new Mutant(fullName);
             mutants.put(mutantName, mutant);
         }
         return mutants;
     }
-    private void putMap(){
+
+    private void putMap() {
         this.map.put("ACMS", "AirlinesBaggageBillingService");
         this.map.put("CUBS", "BillCalculation");
         this.map.put("ERS", "ExpenseReimbursementSystem");
         this.map.put("MOS", "MealOrderingSystem");
-    }
-
-    public static void main(String[] args) {
-        MutantsSet mutantsSet = new MutantsSet("ACMS");
-        System.out.println(mutantsSet.getMutants().get("SDL_8").getFullName());
     }
 
 //    private static final String PARENT_DIR = "labprograms.";
@@ -94,8 +93,6 @@ public class MutantsSet {
 //        }
 //
 //    }
-
-
 
 
 }

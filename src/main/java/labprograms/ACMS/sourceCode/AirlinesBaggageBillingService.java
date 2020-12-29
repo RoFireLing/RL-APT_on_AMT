@@ -1,7 +1,6 @@
 package labprograms.ACMS.sourceCode;
 
-public class AirlinesBaggageBillingService
-{
+public class AirlinesBaggageBillingService {
 
     int airClass = 0; //�ɻ���λ
 
@@ -21,28 +20,27 @@ public class AirlinesBaggageBillingService
 
     double economicfee = 0;
 
-    public double feeCalculation( int airClass, int area, boolean isStudent, double luggage, double economicfee )
-    {
-        this.airClass = this.preairclass( airClass );
-        
-        this.area = this.prearea( area );
-        
+    public double feeCalculation(int airClass, int area, boolean isStudent, double luggage, double economicfee) {
+        this.airClass = this.preairclass(airClass);
+
+        this.area = this.prearea(area);
+
         switch (this.airClass) {
-        case 0 :
-            benchmark = 40;
-            break;
+            case 0:
+                benchmark = 40;
+                break;
 
-        case 1 :
-            benchmark = 30;
-            break;
+            case 1:
+                benchmark = 30;
+                break;
 
-        case 2 :
-            benchmark = 20;
-            break;
+            case 2:
+                benchmark = 20;
+                break;
 
-        case 3 :
-            benchmark = 0;
-            break;
+            case 3:
+                benchmark = 0;
+                break;
 
         }
         if (this.area == 1) {
@@ -54,44 +52,42 @@ public class AirlinesBaggageBillingService
         }
         if (this.area == 0) {
             switch (this.airClass) {
-            case 0 :
-                tln = 2;
-                takealong = 5;
-                break;
+                case 0:
+                    tln = 2;
+                    takealong = 5;
+                    break;
 
-            case 1 :
-                tln = 1;
-                takealong = 5;
-                break;
+                case 1:
+                    tln = 1;
+                    takealong = 5;
+                    break;
 
-            case 2 :
-                tln = 1;
-                takealong = 5;
-                break;
+                case 2:
+                    tln = 1;
+                    takealong = 5;
+                    break;
 
-            case 3 :
-                tln = 1;
-                takealong = 5;
-                break;
+                case 3:
+                    tln = 1;
+                    takealong = 5;
+                    break;
 
             }
         }
-        if (benchmark>luggage){ 
+        if (benchmark > luggage) {
 
-        	luggage=benchmark;
+            luggage = benchmark;
         }
         return luggagefee = (luggage - benchmark) * economicfee * 0.015;
     }
 
-    public int preairclass( int airClass )
-    {
+    public int preairclass(int airClass) {
         int result = 0;
         result = airClass % 4;
         return result;
     }
 
-    public int prearea( int area )
-    {
+    public int prearea(int area) {
         int result = 0;
         result = area % 2;
         return result;

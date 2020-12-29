@@ -9,12 +9,18 @@ import static java.io.File.separator;
 /**
  * describe:
  * this class is responsible to statistics the number of MRs
+ *
  * @author phantom
  * @date 2019/04/29
  */
 public class StatisticsMr {
 
-    public void statisticsMr(String objectName){
+    public static void main(String[] args) {
+        StatisticsMr statisticsMr = new StatisticsMr();
+        statisticsMr.statisticsMr("MOS");
+    }
+
+    public void statisticsMr(String objectName) {
         String path = new Constant().getPartitionPath() + separator + objectName;
         File parentfile = new File(path);
         String[] partitionsNames = parentfile.list();
@@ -26,10 +32,5 @@ public class StatisticsMr {
             numbers += tempfiles.length;
         }
         System.out.println("一共检测到了" + String.valueOf(numbers) + "个MRs");
-    }
-
-    public static void main(String[] args) {
-        StatisticsMr statisticsMr = new StatisticsMr();
-        statisticsMr.statisticsMr("MOS");
     }
 }

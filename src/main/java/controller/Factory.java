@@ -9,7 +9,4 @@ package controller;
 public class Factory {
 
 
-
-
-
 }

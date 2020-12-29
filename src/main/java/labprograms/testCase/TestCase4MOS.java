@@ -1,12 +1,9 @@
 package labprograms.testCase;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * describe:
  * test case
+ *
  * @author phantom
  * @date 2019/04/18
  */
@@ -23,7 +20,7 @@ public class TestCase4MOS {
     public TestCase4MOS(String aircraftmodel, String changeinthenumberofcrewmembers,
                         int newnumberofcrewmembers, String changeinthenumberofpilots,
                         int newnumberofpilots, int numberofchildpassengers,
-                        int numberofrequestedbundlesofflowers){
+                        int numberofrequestedbundlesofflowers) {
         setAircraftmodel(aircraftmodel);
         setChangeinthenumberofcrewmembers(changeinthenumberofcrewmembers);
         setNewnumberofcrewmembers(newnumberofcrewmembers);

@@ -1,40 +1,34 @@
 package labprograms.gethardkilledmutants;
 
-import com.alibaba.fastjson.JSONObject;
 import labprograms.constant.Constant;
 import labprograms.method.Methods4Testing;
 import labprograms.mutants.Mutant;
 import labprograms.mutants.MutantsSet;
-import labprograms.testCase.TestCase4ACMS;
 import labprograms.testCase.TestCase4CUBS;
-import labprograms.testCase.TestSuite4ACMS;
 import labprograms.testCase.TestSuite4CUBS;
 import labprograms.util.WriteTestingResult;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-
-import static java.io.File.separator;
 
 /**
  * describe:
  * randomly generate test cases to execute mutants, which can get the mutants
  * that at least need 20 test case to be killed
+ *
  * @author phantom
  * @date 2019/04/17
  */
 public class RT4CUBS {
-    public void randomTesting(){
+    public static void main(String[] args) {
+        RT4CUBS rt = new RT4CUBS();
+        rt.randomTesting();
+    }
+
+    public void randomTesting() {
         System.out.println("开始测试CUBS");
         Constant constant = new Constant();
         MutantsSet mutantsSet = new MutantsSet("CUBS");
@@ -68,7 +62,7 @@ public class RT4CUBS {
             e.printStackTrace();
         }
 
-        for (Map.Entry<String, Mutant> entry : mutants.entrySet()){
+        for (Map.Entry<String, Mutant> entry : mutants.entrySet()) {
             String mutantName = entry.getKey();
 
             System.out.println("开始测试：" + mutantName);
@@ -105,30 +99,25 @@ public class RT4CUBS {
                 Object sourceResult = null;
                 Object mutantResult = null;
                 try {
-                    sourceResult = sourceMethod.invoke(sourceInstance,tc.getPlanType(),
+                    sourceResult = sourceMethod.invoke(sourceInstance, tc.getPlanType(),
                             tc.getPlanFee(), tc.getTalkTime(), tc.getFlow());
-                    mutantResult = mutantMethod.invoke(mutantInstance,tc.getPlanType(),
+                    mutantResult = mutantMethod.invoke(mutantInstance, tc.getPlanType(),
                             tc.getPlanFee(), tc.getTalkTime(), tc.getFlow());
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
-                if (sourceResult.equals(mutantResult)){
+                if (sourceResult.equals(mutantResult)) {
                     continue;
-                }else{
+                } else {
                     killedindex += String.valueOf(i + 1) + ";";
                     count++;
                 }
             }
             writeTestingResult.write("CUBS", mutantName,
-                    killedindex,String.valueOf(count));
+                    killedindex, String.valueOf(count));
         }
-    }
-
-    public static void main(String[] args) {
-        RT4CUBS rt = new RT4CUBS();
-        rt.randomTesting();
     }
 
 }

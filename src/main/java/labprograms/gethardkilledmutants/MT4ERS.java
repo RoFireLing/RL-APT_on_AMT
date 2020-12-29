@@ -20,10 +20,16 @@ import static java.io.File.separator;
 /**
  * describe:
  * using traditional MT to choose the stubborn mutants
+ *
  * @author phantom
  * @date 2019/05/04
  */
 public class MT4ERS {
+
+    public static void main(String[] args) throws IllegalAccessException, IOException, InvocationTargetException {
+        MT4ERS ers = new MT4ERS();
+        ers.getKilledInfo();
+    }
 
     public void getKilledInfo() throws IOException, InvocationTargetException, IllegalAccessException {
         MutantsSet mutantsSet = new MutantsSet("ERS");
@@ -106,7 +112,7 @@ public class MT4ERS {
         }
     }
 
-    public TestCase4ERS generateTestCase(String testFrame){
+    public TestCase4ERS generateTestCase(String testFrame) {
         String stafflevel = "";
         double actualmonthlymileage = 0;
         double monthlysalesamount = 0;
@@ -114,10 +120,10 @@ public class MT4ERS {
         double otherexpensesamount = 0;
 
         //delate the braces
-        testFrame = testFrame.replace("{","").replace("}","");
+        testFrame = testFrame.replace("{", "").replace("}", "");
         String[] choices = testFrame.split(",");
 
-        switch (choices[0]){
+        switch (choices[0]) {
             case "I-1a":
                 stafflevel = "seniormanager";
                 break;
@@ -128,11 +134,11 @@ public class MT4ERS {
                 stafflevel = "supervisor";
                 break;
             case "*":
-                stafflevel = new String[]{"seniormanager", "manager","supervisor"}[new Random().nextInt(3)];
+                stafflevel = new String[]{"seniormanager", "manager", "supervisor"}[new Random().nextInt(3)];
                 break;
         }
 
-        switch (choices[1]){
+        switch (choices[1]) {
             case "I-2a":
                 actualmonthlymileage = new Random().nextDouble() * 3000;
                 break;
@@ -148,7 +154,7 @@ public class MT4ERS {
         }
 
 
-        switch (choices[2]){
+        switch (choices[2]) {
             case "I-3a":
                 monthlysalesamount = new Random().nextDouble() * 50000;
                 break;
@@ -166,7 +172,7 @@ public class MT4ERS {
                 break;
         }
 
-        switch (choices[3]){
+        switch (choices[3]) {
             case "I-4a":
                 airfareamount = 0;
                 break;
@@ -178,7 +184,7 @@ public class MT4ERS {
                 break;
         }
 
-        switch (choices[4]){
+        switch (choices[4]) {
             case "I-5a":
                 otherexpensesamount = 0;
                 break;
@@ -189,21 +195,18 @@ public class MT4ERS {
                 otherexpensesamount = new Random().nextDouble() * 10000;
                 break;
         }
-        TestCase4ERS tc = new TestCase4ERS(stafflevel,actualmonthlymileage,monthlysalesamount,
+        TestCase4ERS tc = new TestCase4ERS(stafflevel, actualmonthlymileage, monthlysalesamount,
                 airfareamount, otherexpensesamount);
         return tc;
     }
 
-
-
-
-    private void writeInfo(String mutantName, String counter, List<Integer> index){
+    private void writeInfo(String mutantName, String counter, List<Integer> index) {
         String path = Constant.killedmutantinfo + separator + "ERS";
         File file = new File(path);
         PrintWriter printWriter = null;
 
         try {
-            printWriter = new PrintWriter(new FileWriter(file,true));
+            printWriter = new PrintWriter(new FileWriter(file, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,12 +214,6 @@ public class MT4ERS {
         printWriter.write(mutantName + ":" + counter + ":" + index.toString() + "\n");
         printWriter.close();
     }
-
-    public static void main(String[] args) throws IllegalAccessException, IOException, InvocationTargetException {
-        MT4ERS ers = new MT4ERS();
-        ers.getKilledInfo();
-    }
-
 
 
 }

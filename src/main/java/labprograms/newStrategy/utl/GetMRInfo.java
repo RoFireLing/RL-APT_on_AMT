@@ -19,28 +19,29 @@ public class GetMRInfo {
 
     /**
      * 获取ＭＲ的方法
-     * @param objectName　待测程序的名字
+     *
+     * @param objectName 　待测程序的名字
      * @return　Ｍａｐ，键是行号，值是具体的内容
      */
-    public static Map<String, String> getMRinfo(String objectName){
+    public static Map<String, String> getMRinfo(String objectName) {
         String path = "";
-        if (objectName.equals("ACMS")){
+        if (objectName.equals("ACMS")) {
             path = Constant.mrPath4ACMS;
-        } else if (objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             path = Constant.mrPath4CUBS;
-        }else if (objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             path = Constant.mrPath4ERS;
-        }else {
+        } else {
             path = Constant.mrPath4MOS;
         }
 
         BufferedReader bufferedReader = null;
-        Map<String,String> mrInfo = new HashMap<>();
+        Map<String, String> mrInfo = new HashMap<>();
         try {
             bufferedReader = new BufferedReader(new FileReader(path));
             String tempStr = "";
             int tempInteger = 1;
-            while((tempStr = bufferedReader.readLine()) != null){
+            while ((tempStr = bufferedReader.readLine()) != null) {
                 mrInfo.put(String.valueOf(tempInteger), tempStr);
                 tempInteger++;
             }
@@ -51,8 +52,6 @@ public class GetMRInfo {
         }
         return mrInfo;
     }
-
-
 
 
 }

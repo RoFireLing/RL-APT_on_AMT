@@ -4,7 +4,6 @@ import labprograms.constant.Constant;
 
 import java.io.File;
 
-import static java.io.File.pathSeparator;
 import static java.io.File.separator;
 
 /**
@@ -15,7 +14,12 @@ import static java.io.File.separator;
  */
 public class DeleteDir {
 
-    public void delete(String objectName){
+    public static void main(String[] args) {
+        DeleteDir deleteDir = new DeleteDir();
+        deleteDir.delete("MOS");
+    }
+
+    public void delete(String objectName) {
         String path = new Constant().getPartitionPath() + separator + objectName;
         File parentfile = new File(path);
         String[] partitionsNames = parentfile.list();
@@ -23,16 +27,10 @@ public class DeleteDir {
             String partitionPath = path + separator + partitionsNames[i];
             File tempfile = new File(partitionPath);
             File[] tempfiles = tempfile.listFiles();
-            for (File f : tempfiles){
+            for (File f : tempfiles) {
                 f.delete();
             }
         }
-    }
-
-
-    public static void main(String[] args) {
-        DeleteDir deleteDir = new DeleteDir();
-        deleteDir.delete("MOS");
     }
 
 }

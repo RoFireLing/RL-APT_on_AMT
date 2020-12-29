@@ -12,7 +12,9 @@ import java.util.List;
 public class TimeRecorder {
 
 
-    /**the time recorders*/
+    /**
+     * the time recorders
+     */
     private List<Long> firstSelectTestCaseArray;
     private List<Long> secondSelectTestCaseArray;
 
@@ -28,7 +30,7 @@ public class TimeRecorder {
         initial();
     }
 
-    private void initial(){
+    private void initial() {
         firstSelectTestCaseArray = new ArrayList<>();
         firstGenerateTestCaseArray = new ArrayList<>();
         firstExecuteTestCaseArray = new ArrayList<>();
@@ -40,94 +42,96 @@ public class TimeRecorder {
         decimalFormat = new DecimalFormat("0.00");
     }
 
-    public void addFirstSelectTestCase(Long time){
+    public void addFirstSelectTestCase(Long time) {
         firstSelectTestCaseArray.add(time);
     }
 
-    public void addSecondSelectTestCase(Long time){
+    public void addSecondSelectTestCase(Long time) {
         secondSelectTestCaseArray.add(time);
     }
 
 
-    public void addFirstGenerateTestCase(Long time){
+    public void addFirstGenerateTestCase(Long time) {
         firstGenerateTestCaseArray.add(time);
     }
 
-    public void addSecondGenerateTestCase(Long time){
+    public void addSecondGenerateTestCase(Long time) {
         secondGenerateTestCaseArray.add(time);
     }
 
 
-    public void addFirstExecuteTestCase(Long time){
+    public void addFirstExecuteTestCase(Long time) {
         firstExecuteTestCaseArray.add(time);
     }
 
-    public void addSecondExecuteTestCase(Long time){
+    public void addSecondExecuteTestCase(Long time) {
         secondExecuteTestCaseArray.add(time);
     }
 
 
-    /**get average value**/
+    /**
+     * get average value
+     **/
 
-    public double getAverageSelectFirstTestCaseTime(){
+    public double getAverageSelectFirstTestCaseTime() {
         return getAverageValue(firstSelectTestCaseArray);
     }
 
-    public double getAverageSelectSecondTestCaseTime(){
+    public double getAverageSelectSecondTestCaseTime() {
         return getAverageValue(secondSelectTestCaseArray);
     }
 
 
-    public double getAverageGenerateFirstTestCaseTime(){
+    public double getAverageGenerateFirstTestCaseTime() {
         return getAverageValue(firstGenerateTestCaseArray);
     }
 
-    public double getAverageGenerateSecondTestCaseTime(){
+    public double getAverageGenerateSecondTestCaseTime() {
         return getAverageValue(secondGenerateTestCaseArray);
     }
 
 
-    public double getAverageExecuteFirstTestCaseTime(){
+    public double getAverageExecuteFirstTestCaseTime() {
         return getAverageValue(firstExecuteTestCaseArray);
     }
 
-    public double getAverageExecuteSecondTestCaseTime(){
+    public double getAverageExecuteSecondTestCaseTime() {
         return getAverageValue(secondExecuteTestCaseArray);
     }
 
 
-    /**get variance value**/
+    /**
+     * get variance value
+     **/
 
-    public double getVarianceSelectFirstTestCaseTime(){
+    public double getVarianceSelectFirstTestCaseTime() {
         return getVarianceValue(firstSelectTestCaseArray);
     }
 
-    public double getVarianceSelectSecondTestCaseTime(){
+    public double getVarianceSelectSecondTestCaseTime() {
         return getVarianceValue(secondSelectTestCaseArray);
     }
 
 
-    public double getVarianceGenerateFirstTestCaseTime(){
+    public double getVarianceGenerateFirstTestCaseTime() {
         return getVarianceValue(firstGenerateTestCaseArray);
     }
 
-    public double getVarianceGenerateSecondTestCaseTime(){
+    public double getVarianceGenerateSecondTestCaseTime() {
         return getVarianceValue(secondGenerateTestCaseArray);
     }
 
 
-    public double getVarianceExecuteFirstTestCaseTime(){
+    public double getVarianceExecuteFirstTestCaseTime() {
         return getVarianceValue(firstExecuteTestCaseArray);
     }
 
-    public double getVarianceExecuteSecondTestCaseTime(){
+    public double getVarianceExecuteSecondTestCaseTime() {
         return getVarianceValue(secondExecuteTestCaseArray);
     }
 
 
-
-
-    private double getAverageValue(List<Long> timeArray){
+    private double getAverageValue(List<Long> timeArray) {
         double sum = 0;
         for (int i = 0; i < timeArray.size(); i++) {
             sum += timeArray.get(i);
@@ -136,7 +140,7 @@ public class TimeRecorder {
     }
 
 
-    private double getVarianceValue(List<Long> list){
+    private double getVarianceValue(List<Long> list) {
         double average = getAverageValue(list);
 
         double sum = 0;
@@ -146,9 +150,6 @@ public class TimeRecorder {
         }
         return Double.parseDouble(decimalFormat.format(sum / (list.size() - 1)));
     }
-
-
-
 
 
     /***get lists**/
@@ -179,4 +180,22 @@ public class TimeRecorder {
         return secondExecuteTestCaseArray;
     }
 
+    /**
+     * get T/T2 list
+     */
+    public List<Long> getFirstTotalArray() {
+        List<Long> TArray = new ArrayList<>();
+        for (int i = 0; i < firstSelectTestCaseArray.size(); i++) {
+            TArray.add(firstSelectTestCaseArray.get(i) + firstGenerateTestCaseArray.get(i) + firstExecuteTestCaseArray.get(i));
+        }
+        return TArray;
+    }
+
+    public List<Long> getSecondTotalArray() {
+        List<Long> T2Array = new ArrayList<>();
+        for (int i = 0; i < secondSelectTestCaseArray.size(); i++) {
+            T2Array.add(secondSelectTestCaseArray.get(i) + secondGenerateTestCaseArray.get(i) + secondExecuteTestCaseArray.get(i));
+        }
+        return T2Array;
+    }
 }

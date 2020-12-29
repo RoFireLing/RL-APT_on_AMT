@@ -20,10 +20,16 @@ import static java.io.File.separator;
  * partition10 | I-1c;I-3b;*
  * partition11 | I-1c;I-3c;*
  * partition12 | I-1c;I-3d;*
+ *
  * @author phantom
  * @date 2019/04/28
  */
 public class Partition4ERS {
+
+    public static void main(String[] args) {
+        Partition4ERS ers = new Partition4ERS();
+        ers.partition();
+    }
 
     public void partition() {
         String path = new Constant().getMrPath() + separator + "ERS";
@@ -36,7 +42,7 @@ public class Partition4ERS {
             int count = 0;
             while ((tempStr = bufferedReader.readLine()) != null) {
                 count++;
-                if (tempStr.contains("*")){
+                if (tempStr.contains("*")) {
                     tempStr = tempStr.replace("*", "#");
                 }
                 String sourceTestFrame = tempStr.split(";")[0];
@@ -45,108 +51,108 @@ public class Partition4ERS {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "0" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1a") && sourceTestFrame.contains("I-3b")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "1" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1a") && sourceTestFrame.contains("I-3c")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "2" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1a") && sourceTestFrame.contains("I-3d")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "3" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1b") && sourceTestFrame.contains("I-3a")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "4" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1b") && sourceTestFrame.contains("I-3b")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "5" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1b") && sourceTestFrame.contains("I-3c")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "6" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else if (sourceTestFrame.contains("I-1b") && sourceTestFrame.contains("I-3d")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "7" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
-                }else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3a")) {
+                } else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3a")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "8" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
-                }else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3b")) {
+                } else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3b")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "9" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
-                }else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3c")) {
+                } else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3c")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "10" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
-                }else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3d")) {
+                } else if (sourceTestFrame.contains("I-1c") && sourceTestFrame.contains("I-3d")) {
                     String tempPath = new Constant().getPartitionPath() + separator + "ERS" + separator
                             + "11" + separator + tempStr;
                     File tempfile = new File(tempPath);
-                    if (tempfile.mkdir()){
+                    if (tempfile.mkdir()) {
                         System.out.println(tempPath + "创建成功");
-                    }else {
+                    } else {
                         System.out.println(tempPath + "创建不成功");
                     }
                 } else {
@@ -159,10 +165,5 @@ public class Partition4ERS {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        Partition4ERS ers = new Partition4ERS();
-        ers.partition();
     }
 }

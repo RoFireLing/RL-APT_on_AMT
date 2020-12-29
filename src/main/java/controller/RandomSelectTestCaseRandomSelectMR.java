@@ -2,19 +2,18 @@ package controller;
 
 import labprograms.constant.Constant;
 import labprograms.newStrategy.utl.GetMRInfo;
-import labprograms.newStrategy.utl.ObtainMRFromOneLine;
 
 import java.util.Map;
 import java.util.Random;
 
 /**
  * @Description:　test case selecting strategy : randodm
- *                MR selecting strategy : random
+ * MR selecting strategy : random
  * @auther phantom
  * @create 2019-09-19 上午9:29
  */
 public class RandomSelectTestCaseRandomSelectMR implements SelectingTestCaseAndMR {
-    private String  testframesAndMr;
+    private String testframesAndMr;
 
     @Override
     public String selectTestCase(String objectName) {

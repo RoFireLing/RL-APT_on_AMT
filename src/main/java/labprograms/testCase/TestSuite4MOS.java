@@ -2,23 +2,36 @@ package labprograms.testCase;
 
 import labprograms.constant.Constant;
 import labprograms.util.WriteTestCases;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.*;
 
 /**
  * describe:
  * this class is responsible to create test cases and write them into a json file
+ *
  * @author phantom
  * @date 2019/04/23
  */
 public class TestSuite4MOS {
-    /**the map that is convenient to transform to json */
+    /**
+     * the map that is convenient to transform to json
+     */
     private Map<String, Object> testSuite;
 
-    /**the list that is convenient to take out a test case*/
+    /**
+     * the list that is convenient to take out a test case
+     */
     private List<TestCase4MOS> testcases;
+
+    public TestSuite4MOS() {
+        testcases = new ArrayList<>();
+        testSuite = new HashMap<>();
+    }
+
+    public static void main(String[] args) {
+        TestSuite4MOS suite = new TestSuite4MOS();
+        suite.createTestSuite();
+    }
 
     public Map<String, Object> getTestSuite() {
         return testSuite;
@@ -28,17 +41,10 @@ public class TestSuite4MOS {
         return testcases;
     }
 
-    public TestSuite4MOS() {
-        testcases = new ArrayList<>();
-        testSuite = new HashMap<>();
-    }
-
-
-
     /**
      * generate test cases and write test cases into a json file
      */
-    public void createTestSuite(){
+    public void createTestSuite() {
         Constant constant = new Constant();
         Random random = new Random(0);
         String[] models = {"747200", "747300", "747400", "000200", "000300"};
@@ -59,11 +65,6 @@ public class TestSuite4MOS {
         }
         WriteTestCases writeTestCases = new WriteTestCases();
         writeTestCases.writeTestSuiteToJson("MOS", getTestSuite());
-    }
-
-    public static void main(String[] args) {
-        TestSuite4MOS suite = new TestSuite4MOS();
-        suite.createTestSuite();
     }
 
 }

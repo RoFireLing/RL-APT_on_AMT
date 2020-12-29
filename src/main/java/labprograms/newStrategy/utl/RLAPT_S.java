@@ -1,5 +1,7 @@
 package labprograms.newStrategy.utl;
 
+import labprograms.constant.Constant;
+
 import java.util.Random;
 
 public class RLAPT_S {
@@ -7,9 +9,9 @@ public class RLAPT_S {
     // param of RL-APT
     private double[][] RLAPT;
 
-    private double RLAPT_alpha = 1;
+    private double RLAPT_alpha;
 
-    private double RLAPT_gamma = 0.6;
+    private double RLAPT_gamma = 0.5;
 
     private double RLAPT_r0 = 1;
 
@@ -23,16 +25,20 @@ public class RLAPT_S {
         }
     }
 
-    // get a index of partition (epsilon-greedy)
-    public int nextPartition4RLAPT(int formerPartitionNumber, int noTC) {
+    // get index of the next partition
+    public int nextPartition4RLAPT(String program_name, int formerPartitionNumber, int noTC) {
         int index = -1;
         double randomNumber = new Random().nextDouble();
-//        double epsilon = 1 / Math.sqrt(noTC);
         double epsilon;
-        if (noTC < 5 * RLAPT.length)
-            epsilon = 1 - 0.1 * (noTC / RLAPT.length);
-        else
-            epsilon = 0.5;
+        int testcasenum = 0;
+        if (program_name == "ACMS") {
+            testcasenum = Constant.getNumberofMr4ACMS();
+        } else if (program_name == "CUBS") {
+            testcasenum = Constant.getNumberofMr4CUBS();
+        } else {
+            testcasenum = Constant.getNumberofMr4ERS();
+        }
+        epsilon = 1 - (double) noTC / testcasenum;
 
         if (randomNumber <= epsilon) {
             index = new Random().nextInt(RLAPT.length);
@@ -44,8 +50,8 @@ public class RLAPT_S {
     // adjust the Q-table for RLAPT testing based on SARSA
     // NextPartitionIndex = nextPartition4RLAPT(NowPartitionIndex, noTC)
     // NextNextPartitionIndex = nextPartition4RLAPT(NextPartitionIndex, noTC)
-    public void adjustRLAPT_S(int NowPartitionIndex, int NextPartitionIndex, int NextNextPartitionIndex,
-                              boolean isKilledMutans) {
+    public void adjustRLAPT_S(int noTC, int NowPartitionIndex, int NextPartitionIndex, int NextNextPartitionIndex, boolean isKilledMutans) {
+        RLAPT_alpha = 1.0 / noTC;
         double r = 0;
         if (NowPartitionIndex == NextPartitionIndex) {
             if (isKilledMutans) {
@@ -54,9 +60,9 @@ public class RLAPT_S {
                 r = -RLAPT_r0;
         } else {
             if (isKilledMutans) {
-                r = -RLAPT_r0 / RLAPT.length;
+                r = -RLAPT_r0 / (RLAPT.length - 1);
             } else
-                r = RLAPT_r0 / RLAPT.length;
+                r = RLAPT_r0 / (RLAPT.length - 1);
         }
         RLAPT[NowPartitionIndex][NextPartitionIndex] += RLAPT_alpha
                 * (r + RLAPT_gamma * RLAPT[NextPartitionIndex][NextNextPartitionIndex]

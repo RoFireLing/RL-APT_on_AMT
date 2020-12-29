@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testSuite><partition id="1" scheme="1-1;2-1"><testCase id="0"><airClass>0</airClass><area>0</area><isStudent>true</isStudent><luggage>0.0</luggage><economicfee>1000.15</economicfee><expectedResult>0.0</expectedResult><options>1-1;2-1;3-1;4-1;5-1</options></testCase></partition></testSuite>
+<testSuite>
+    <partition id="1" scheme="1-1;2-1">
+        <testCase id="0">
+            <airClass>0</airClass>
+            <area>0</area>
+            <isStudent>true</isStudent>
+            <luggage>0.0</luggage>
+            <economicfee>1000.15</economicfee>
+            <expectedResult>0.0</expectedResult>
+            <options>1-1;2-1;3-1;4-1;5-1</options>
+        </testCase>
+    </partition>
+</testSuite>

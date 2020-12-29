@@ -27,7 +27,17 @@ import java.util.Set;
  * @auther phantom
  * @create 2019-09-23 下午4:18
  */
-public class AMTMAPTplusPBMR implements NewStrategy{
+public class AMTMAPTplusPBMR implements NewStrategy {
+    public static void main(String[] args) {
+        AMTMAPTplusPBMR mt = new AMTMAPTplusPBMR();
+        String[] names = {"ERS"};
+        for (int i = 0; i < 100; i++) {
+            for (String name : names) {
+                mt.testing(name, i);
+            }
+        }
+    }
+
     @Override
     public void testing(String objectName, int repeatTimes) {
         //建立分区与测试用例之间的关系
@@ -46,7 +56,7 @@ public class AMTMAPTplusPBMR implements NewStrategy{
 
         for (int i = 0; i < Constant.repeatNumber; i++) {
             System.out.println("AMTMAPTplusPBMR4" + objectName + "使用MAPT+PBMR:" +
-                    "执行第"+ String.valueOf(i + 1) + "次测试：" );
+                    "执行第" + String.valueOf(i + 1) + "次测试：");
             //初始化ＭＡＰＴ
             MAPT mapt = new MAPT();
             //初始化测试剖面
@@ -100,7 +110,7 @@ public class AMTMAPTplusPBMR implements NewStrategy{
                 //依据ＰＢＭＲ选择新的蜕变关系
                 String sourceTestFrame = testframesAndMr.split(";")[0];
                 //generate new source and follow test frames and MR
-                testframesAndMr = control.PBMRGetMR(partitionIndex,sourceTestFrame);
+                testframesAndMr = control.PBMRGetMR(partitionIndex, sourceTestFrame);
 
                 //判断衍生测试用例所在的分区的编号
                 String followTestFrame = testframesAndMr.split(";")[1];
@@ -440,7 +450,7 @@ public class AMTMAPTplusPBMR implements NewStrategy{
                     }
                 }
                 //根据测试结果调整测试剖面
-                mapt.adjustMAPT(partitionIndex,partitionIndexOffollowTestCase, isKilledMutants);
+                mapt.adjustMAPT(partitionIndex, partitionIndexOffollowTestCase, isKilledMutants);
             }
             measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
             measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
@@ -460,34 +470,24 @@ public class AMTMAPTplusPBMR implements NewStrategy{
 
         //记录详细的实验结果
         ResultRecorder resultRecorder = new ResultRecorder();
-        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(),measureRecorder.getF2measureArray());
-        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(),measureRecorder.getAverageF2measure(),
+        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
+        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
                 measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
 
-        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(),timeRecorder.getFirstGenerateTestCaseArray(),
-                timeRecorder.getFirstExecuteTestCaseArray(),timeRecorder.getSecondSelectTestCaseArray(),
-                timeRecorder.getSecondGenerateTestCaseArray(),timeRecorder.getSecondExecuteTestCaseArray());
+        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
+                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
+                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
 
-        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(),timeRecorder.getAverageGenerateFirstTestCaseTime(),
+        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
                 timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
-                timeRecorder.getAverageGenerateSecondTestCaseTime(),timeRecorder.getAverageExecuteSecondTestCaseTime());
+                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
 
-        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(),timeRecorder.getVarianceGenerateFirstTestCaseTime(),
-                timeRecorder.getVarianceExecuteFirstTestCaseTime(),timeRecorder.getVarianceSelectSecondTestCaseTime(),
-                timeRecorder.getVarianceGenerateSecondTestCaseTime(),timeRecorder.getVarianceExecuteSecondTestCaseTime());
+        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
+                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
+                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
 
         String excelLogName = "AMTMAPTplusPBMR" + objectName + ".xlsx";
         resultRecorder.writeResult(excelLogName, repeatTimes);
-    }
-
-    public static void main(String[] args) {
-        AMTMAPTplusPBMR mt = new AMTMAPTplusPBMR();
-        String[] names = {"ERS"};
-        for (int i = 0; i < 100; i++) {
-            for (String name : names){
-                mt.testing(name, i);
-            }
-        }
     }
 
 }

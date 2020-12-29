@@ -1,7 +1,6 @@
 package labprograms.gethardkilledmutants;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import labprograms.constant.Constant;
 
 import java.io.*;
@@ -19,7 +18,12 @@ import static java.io.File.separator;
  */
 public class StatistacsFailureRate {
 
-    public void getFailureRate(String objectName, double failurRate){
+    public static void main(String[] args) {
+        StatistacsFailureRate statistacsFailureRate = new StatistacsFailureRate();
+        statistacsFailureRate.getFailureRate("MOS", 0.1);
+    }
+
+    public void getFailureRate(String objectName, double failurRate) {
         String path = Constant.gethardkilledmutantsPath + separator + objectName;
         File file = new File(path);
         List<String> names = new ArrayList<>();
@@ -46,18 +50,18 @@ public class StatistacsFailureRate {
             else
                 threshod = failurRate * Constant.numberofMr4MOS * 2;
 
-            while((temp = bufferedReader.readLine()) != null){
+            while ((temp = bufferedReader.readLine()) != null) {
                 String[] content = temp.split(":");
-                if (Integer.parseInt(content[1]) * 2 <= threshod && Integer.parseInt(content[1]) != 0){
+                if (Integer.parseInt(content[1]) * 2 <= threshod && Integer.parseInt(content[1]) != 0) {
                     names.add(content[0]);
                     namesSet.add(content[0]);
                     String indexs = content[2].replace("[", "").
-                            replace("]","");
+                            replace("]", "");
                     String[] indexsArray = indexs.split(", ");
                     namesMap.put(content[0], indexsArray);
                 }
 
-                if (Integer.parseInt(content[1]) <= min && Integer.parseInt(content[1]) != 0){
+                if (Integer.parseInt(content[1]) <= min && Integer.parseInt(content[1]) != 0) {
                     min = Integer.parseInt(content[1]);
                     minName = content[0];
                 }
@@ -68,30 +72,31 @@ public class StatistacsFailureRate {
             e.printStackTrace();
         }
         mutantsFiltrateStep1(objectName, namesSet);
-        mutantFiltrateStep2(objectName,namesSet,namesMap);
+        mutantFiltrateStep2(objectName, namesSet, namesMap);
     }
 
     /**
      * 实行第一步过滤
+     *
      * @param objectName
      * @param set
      */
-    private void mutantsFiltrateStep1(String objectName, Set<String> set){
+    private void mutantsFiltrateStep1(String objectName, Set<String> set) {
         String path = Constant.gethardkilledmutantsPath + separator + objectName + "_filtrate_1";
         String str = "";
         Iterator<String> iterator = set.iterator();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             str += iterator.next() + ", ";
         }
         File file = new File(path);
-        if (!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        try{
+        try {
             PrintWriter printWriter = new PrintWriter(new FileWriter(file));
             printWriter.write(str);
             printWriter.close();
@@ -101,43 +106,43 @@ public class StatistacsFailureRate {
 
     }
 
-
     /**
      * 过滤步骤２
+     *
      * @param objectName
      * @param set
      */
-    private void mutantFiltrateStep2(String objectName, Set<String> set, Map<String, String[]> namesMap){
+    private void mutantFiltrateStep2(String objectName, Set<String> set, Map<String, String[]> namesMap) {
         Set<String> elementsSet = new HashSet<>();
         Iterator<String> iterator = set.iterator();
         Map<String, String[]> finalNames = new HashMap<>();
 
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             String mutantName = iterator.next();
             String[] testcases = namesMap.get(mutantName);
             boolean flag = false;
             for (int i = 0; i < testcases.length; i++) {
-                if (!elementsSet.add(testcases[i])){
+                if (!elementsSet.add(testcases[i])) {
                     flag = true;
                     break;
                 }
             }
-            if (!flag){
-                finalNames.put(mutantName,testcases);
+            if (!flag) {
+                finalNames.put(mutantName, testcases);
             }
         }
 
         String path = Constant.gethardkilledmutantsPath + separator + objectName + "_filtrate_2";
         File file = new File(path);
-        if (!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        try{
+        try {
             PrintWriter printWriter = new PrintWriter(new FileWriter(file));
             String content = JSON.toJSONString(finalNames);
             printWriter.write(content);
@@ -145,11 +150,6 @@ public class StatistacsFailureRate {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        StatistacsFailureRate statistacsFailureRate = new StatistacsFailureRate();
-        statistacsFailureRate.getFailureRate("MOS", 0.1);
     }
 
 

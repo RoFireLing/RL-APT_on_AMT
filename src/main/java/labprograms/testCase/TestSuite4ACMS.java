@@ -2,9 +2,6 @@ package labprograms.testCase;
 
 import labprograms.constant.Constant;
 import labprograms.util.WriteTestCases;
-import lombok.Getter;
-import lombok.Setter;
-
 
 import java.util.*;
 
@@ -13,16 +10,31 @@ import java.util.*;
  * describe:
  * the test suite that conclude specified test cases
  * the index of test case is from 0 to n
+ *
  * @author phantom
  * @date 2019/04/17
  */
 public class TestSuite4ACMS {
 
-    /**the map that is convenient to transform to json */
+    /**
+     * the map that is convenient to transform to json
+     */
     private Map<String, Object> testSuite;
 
-    /**the list that is convenient to take out a test case*/
+    /**
+     * the list that is convenient to take out a test case
+     */
     private List<TestCase4ACMS> testcases;
+
+    public TestSuite4ACMS() {
+        testSuite = new HashMap<>();
+        testcases = new ArrayList<>();
+    }
+
+    public static void main(String[] args) {
+        TestSuite4ACMS testSuite4ACMS = new TestSuite4ACMS();
+        testSuite4ACMS.createTestSuite();
+    }
 
     public Map<String, Object> getTestSuite() {
         return testSuite;
@@ -32,24 +44,19 @@ public class TestSuite4ACMS {
         return testcases;
     }
 
-    public TestSuite4ACMS(){
-        testSuite = new HashMap<>();
-        testcases = new ArrayList<>();
-    }
-
     /**
      * write test cases to json file
      */
-    public void createTestSuite(){
+    public void createTestSuite() {
         Constant constant = new Constant();
         Random random = new Random(0);
         Boolean[] ISSTUDENT = {true, false};
         for (int i = 0; i < constant.number; i++) {
             boolean isStudent = ISSTUDENT[random.nextInt(2)];
             int airClass = 0;
-            if (isStudent){
+            if (isStudent) {
                 airClass = 2;
-            }else {
+            } else {
                 airClass = random.nextInt(4);
             }
             int area = random.nextInt(2);
@@ -64,23 +71,13 @@ public class TestSuite4ACMS {
         writeTestCases.writeTestSuiteToJson("ACMS", getTestSuite());
     }
 
-
-    public List<TestCase4ACMS> getTestCases(){
+    public List<TestCase4ACMS> getTestCases() {
         List<Object> temp_list = new GetTestSuite().getTestSuite("ACMS");
         for (int i = 0; i < temp_list.size(); i++) {
             TestCase4ACMS tc = (TestCase4ACMS) temp_list.get(i);
             testcases.add(tc);
         }
         return testcases;
-    }
-
-
-
-
-
-    public static void main(String[] args) {
-        TestSuite4ACMS testSuite4ACMS = new TestSuite4ACMS();
-        testSuite4ACMS.createTestSuite();
     }
 
 }

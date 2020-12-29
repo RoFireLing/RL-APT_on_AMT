@@ -13,9 +13,13 @@ public class TestCase4ACMS4XML {
     private double luggage;
     private double economicfee;
     private double expectedResult;
-    /**该测试用例所在的分区*/
+    /**
+     * 该测试用例所在的分区
+     */
     private int partition;
-    /**组成该测试用例的options的组合*/
+    /**
+     * 组成该测试用例的options的组合
+     */
     private String options;
 
     public TestCase4ACMS4XML(int airClass, int area, boolean isStudent,

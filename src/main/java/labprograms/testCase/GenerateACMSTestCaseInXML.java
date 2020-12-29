@@ -1,33 +1,40 @@
 package labprograms.testCase;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.io.File.separator;
 
 /**
  * describe:
- *  产生ACMS的测试用例集，写进XML文档中
+ * 产生ACMS的测试用例集，写进XML文档中
+ *
  * @author phantom
  * @date 2019/07/22
  */
 public class GenerateACMSTestCaseInXML {
 
+    public static void main(String[] args) {
+        GenerateACMSTestCaseInXML generator = new GenerateACMSTestCaseInXML();
+        generator.writeTestSuite2XML();
+    }
+
     /**
      * 生成测试用例
+     *
      * @return
      */
-    private List<TestCase4ACMS4XML> generateTestCases4ACMS(){
+    private List<TestCase4ACMS4XML> generateTestCases4ACMS() {
         List<TestCase4ACMS4XML> suite = new ArrayList<>();
-        TestCase4ACMS4XML case1 = new TestCase4ACMS4XML(0,0,true,
-                0.00,1000.15,0.00, 1,
+        TestCase4ACMS4XML case1 = new TestCase4ACMS4XML(0, 0, true,
+                0.00, 1000.15, 0.00, 1,
                 "1-1;2-1;3-1;4-1;5-1");
         suite.add(case1);
         return suite;
@@ -36,7 +43,7 @@ public class GenerateACMSTestCaseInXML {
     /**
      * 将生成的测试用例写入XML文件中
      */
-    public void writeTestSuite2XML(){
+    public void writeTestSuite2XML() {
         //获取测试用例集
         List<TestCase4ACMS4XML> suite = generateTestCases4ACMS();
 
@@ -89,11 +96,5 @@ public class GenerateACMSTestCaseInXML {
         }
 
 
-    }
-
-
-    public static void main(String[] args) {
-        GenerateACMSTestCaseInXML generator = new GenerateACMSTestCaseInXML();
-        generator.writeTestSuite2XML();
     }
 }

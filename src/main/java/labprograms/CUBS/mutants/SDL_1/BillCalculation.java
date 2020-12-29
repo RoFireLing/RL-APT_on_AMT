@@ -1,11 +1,7 @@
 package labprograms.CUBS.mutants.SDL_1;// This is a mutant program.
 // Author : ysma
 
-import java.io.IOException;
-
-
-public class BillCalculation
-{
+public class BillCalculation {
 
     private String planType = "";
 
@@ -29,8 +25,7 @@ public class BillCalculation
 
     private double bill = 0;
 
-    public  double phoneBillCalculation( String planType, int planFee, int talkTime, int flow )
-    {
+    public double phoneBillCalculation(String planType, int planFee, int talkTime, int flow) {
         if (talkTime < talkTimeBench) {
             talkTime = talkTimeBench;
         }

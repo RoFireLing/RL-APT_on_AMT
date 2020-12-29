@@ -35,7 +35,7 @@ public class UsedMutantsSet {
     public UsedMutantsSet(String objectName) {
         setObjectName(objectName);
         mutants = new HashMap<>();
-        mutants_dir = PARENT_DIR + this.objectName +  ".usedmutants.";
+        mutants_dir = PARENT_DIR + this.objectName + ".usedmutants.";
         dir = System.getProperty("user.dir") + separator + "src" + separator + "main" +
                 separator + "java" + separator + "labprograms" + separator + objectName
                 + separator + "usedmutants";
@@ -44,18 +44,18 @@ public class UsedMutantsSet {
     }
 
 
-    public Map<String, Mutant> getMutants(){
+    public Map<String, Mutant> getMutants() {
         File dir = new File(this.dir);
         String[] mutantNames = dir.list();
-        for (String mutantName : mutantNames){
-            String fullName = mutants_dir + mutantName + "."+  map.get(objectName).toString();
+        for (String mutantName : mutantNames) {
+            String fullName = mutants_dir + mutantName + "." + map.get(objectName).toString();
             Mutant mutant = new Mutant(fullName);
             mutants.put(mutantName, mutant);
         }
         return mutants;
     }
 
-    private void putMap(){
+    private void putMap() {
         this.map.put("ACMS", "AirlinesBaggageBillingService");
         this.map.put("CUBS", "BillCalculation");
         this.map.put("ERS", "ExpenseReimbursementSystem");

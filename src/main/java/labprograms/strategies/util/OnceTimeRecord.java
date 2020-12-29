@@ -6,7 +6,9 @@ package labprograms.strategies.util;
  * @create 2019-09-18 下午4:20
  */
 public class OnceTimeRecord {
-    /**记录时间的对象*/
+    /**
+     * 记录时间的对象
+     */
     private long firstSelectingTime;
     private long firstGeneratingTime;
     private long firstExecutingTime;
@@ -15,10 +17,14 @@ public class OnceTimeRecord {
     private long secondExecutingTime;
 
 
+    public OnceTimeRecord() {
+        initializeTimeRecorders();
+    }
+
     /***
      * 初始化记录时间的对象
      */
-    private void initializeTimeRecorders(){
+    private void initializeTimeRecorders() {
         firstSelectingTime = 0;
         firstGeneratingTime = 0;
         firstExecutingTime = 0;
@@ -27,31 +33,27 @@ public class OnceTimeRecord {
         secondExecutingTime = 0;
     }
 
-    public OnceTimeRecord() {
-        initializeTimeRecorders();
-    }
-
-    public void firstSelectionTimePlus(long time){
+    public void firstSelectionTimePlus(long time) {
         firstSelectingTime += time;
     }
 
-    public void firstGeneratingTimePlus(long time){
+    public void firstGeneratingTimePlus(long time) {
         firstGeneratingTime += time;
     }
 
-    public void firstExecutingTime(long time){
+    public void firstExecutingTime(long time) {
         firstExecutingTime += time;
     }
 
-    public void secondSelectionTimePlus(long time){
+    public void secondSelectionTimePlus(long time) {
         secondSelectingTime += time;
     }
 
-    public void secondGeneratingTimePlus(long time){
+    public void secondGeneratingTimePlus(long time) {
         secondGeneratingTime += time;
     }
 
-    public void secondExecutingTime(long time){
+    public void secondExecutingTime(long time) {
         secondExecutingTime += time;
     }
 

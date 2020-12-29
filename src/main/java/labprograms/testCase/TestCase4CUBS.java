@@ -1,12 +1,9 @@
 package labprograms.testCase;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
 /**
  * describe:
  * test case
+ *
  * @author phantom
  * @date 2019/04/17
  */
@@ -17,7 +14,7 @@ public class TestCase4CUBS {
     private int talkTime;
     private int flow;
 
-    public TestCase4CUBS(String planType, int planFee, int talkTime, int flow){
+    public TestCase4CUBS(String planType, int planFee, int talkTime, int flow) {
         setPlanType(planType);
         setPlanFee(planFee);
         setTalkTime(talkTime);

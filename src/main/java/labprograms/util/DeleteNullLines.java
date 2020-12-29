@@ -7,6 +7,7 @@ import static java.io.File.separator;
 /**
  * describe:
  * delete the null lines in the specified file
+ *
  * @author phantom
  * @date 2019/04/27
  */
@@ -15,9 +16,14 @@ public class DeleteNullLines {
             "main" + separator + "java" + separator + "labprograms" + separator + "mr";
     private String objectName;
 
-    public void deleteNullLines(String objectName){
+    public static void main(String[] args) {
+        DeleteNullLines deleteNullLines = new DeleteNullLines();
+        deleteNullLines.deleteNullLines("MOS");
+    }
+
+    public void deleteNullLines(String objectName) {
         this.objectName = objectName;
-        String filePath = path +separator + objectName;
+        String filePath = path + separator + objectName;
         File file = new File(filePath);
         File newfile = new File(filePath);
         BufferedReader bufferedReader = null;
@@ -33,18 +39,13 @@ public class DeleteNullLines {
 
         String tempStr = "";
         try {
-            while((tempStr = bufferedReader.readLine()) != "\n"){
+            while ((tempStr = bufferedReader.readLine()) != "\n") {
                 printWriter.write(tempStr + "\n");
             }
             printWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        DeleteNullLines deleteNullLines = new DeleteNullLines();
-        deleteNullLines.deleteNullLines("MOS");
     }
 
 }

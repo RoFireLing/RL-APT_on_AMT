@@ -18,21 +18,22 @@ public class InstantiationTestFrame {
 
     /**
      * 实例化测试帧的方法
-     * @param objectName　待测对象的名字
-     * @param testFrame　具体的测试帧
+     *
+     * @param objectName 　待测对象的名字
+     * @param testFrame  　具体的测试帧
      * @return　实例化后的测试用例
      */
-    public static Object instantiation(String objectName, String testFrame){
-        if (objectName.equals("ACMS")){
+    public static Object instantiation(String objectName, String testFrame) {
+        if (objectName.equals("ACMS")) {
             TestCase4ACMS tc = new MT4ACMS().generateTestCase(testFrame);
             return tc;
-        }else if (objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             TestCase4CUBS tc = new MT4CUBS().generateTestCase(testFrame);
             return tc;
-        }else if (objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             TestCase4ERS tc = new MT4ERS().generateTestCase(testFrame);
             return tc;
-        }else {
+        } else {
             TestCase4MOS tc = new MT4MOS().generateTestCase(testFrame);
             return tc;
         }

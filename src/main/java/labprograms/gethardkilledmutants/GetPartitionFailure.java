@@ -16,7 +16,16 @@ import static java.io.File.separator;
  */
 public class GetPartitionFailure {
 
-    public void getPartitionFailureRate(String objectName, String number){
+    public static void main(String[] args) {
+        GetPartitionFailure getPartitionFailure = new GetPartitionFailure();
+        for (int i = 0; i < 3; i++) {
+            System.out.println("partition" + String.valueOf(i) + ":");
+            getPartitionFailure.getPartitionFailureRate("CUBS", String.valueOf(i));
+        }
+
+    }
+
+    public void getPartitionFailureRate(String objectName, String number) {
         String path = Constant.gethardkilledmutantsPath + separator
                 + objectName + "UsedMutants";
         File file = new File(path);
@@ -26,14 +35,14 @@ public class GetPartitionFailure {
         try {
             bufferedReader = new BufferedReader(new FileReader(file));
             String tempStr = "";
-            while((tempStr = bufferedReader.readLine()) != null){
+            while ((tempStr = bufferedReader.readLine()) != null) {
                 String[] tempArray = tempStr.split(":");
                 String mutantName = tempArray[0];
                 String tcs = tempArray[2];
-                if (tcs.contains(", ")){
+                if (tcs.contains(", ")) {
                     listMap.put(mutantName, Arrays.asList(tcs.split(", ")));
-                }else {
-                    tcs = tcs.replace("[","").replace("]","");
+                } else {
+                    tcs = tcs.replace("[", "").replace("]", "");
                     List<String> tcsList = new ArrayList<>();
                     tcsList.add(tcs);
                     listMap.put(mutantName, tcsList);
@@ -50,18 +59,18 @@ public class GetPartitionFailure {
         Control control = new Control(objectName);
         int numberCounter = 0;
         try {
-            for (Map.Entry<String, List<String>> entry : listMap.entrySet()){
+            for (Map.Entry<String, List<String>> entry : listMap.entrySet()) {
                 bufferedReader = new BufferedReader(new FileReader(tempPathFile));
 //                System.out.println(entry.getKey() + ":");
                 String temp = "";
                 int counter = 0;
 
-                while ((temp = bufferedReader.readLine()) != null){
+                while ((temp = bufferedReader.readLine()) != null) {
                     counter++;
-                    if (entry.getValue().contains(String.valueOf(counter))){
+                    if (entry.getValue().contains(String.valueOf(counter))) {
                         int pa = control.judgeThePartitionOfFollowTestFrame(objectName, temp.split(";")[0]);
 //                        System.out.println(temp + ":  "+String.valueOf(pa));
-                        if (String.valueOf(pa).equals(number)){
+                        if (String.valueOf(pa).equals(number)) {
                             numberCounter++;
                         }
                     }
@@ -74,15 +83,6 @@ public class GetPartitionFailure {
             e.printStackTrace();
         }
         System.out.println(numberCounter);
-    }
-
-    public static void main(String[] args) {
-        GetPartitionFailure getPartitionFailure = new GetPartitionFailure();
-        for (int i = 0; i < 3; i++) {
-            System.out.println("partition" + String.valueOf(i) + ":");
-            getPartitionFailure.getPartitionFailureRate("CUBS",String.valueOf(i));
-        }
-
     }
 
 

@@ -20,26 +20,28 @@ public class MeasureRecorder {
         initial();
     }
 
-    private void initial(){
+    private void initial() {
         FmeasureArray = new ArrayList<>();
         F2measureArray = new ArrayList<>();
     }
 
 
-    /**add element to list**/
+    /**
+     * add element to list
+     **/
 
-    public void addFMeasure(int value){
+    public void addFMeasure(int value) {
         FmeasureArray.add(value);
     }
 
-    public void addF2Measure(int value){
+    public void addF2Measure(int value) {
         F2measureArray.add(value);
     }
 
 
-
-
-    /**get list*/
+    /**
+     * get list
+     */
     public List<Integer> getFmeasureArray() {
         return FmeasureArray;
     }
@@ -49,32 +51,33 @@ public class MeasureRecorder {
     }
 
 
+    /**
+     * get average and variance
+     */
 
-
-    /**get average and variance*/
-
-    public double getAverageFmeasure(){
+    public double getAverageFmeasure() {
         return calculateAverage(FmeasureArray);
     }
 
-    public double getAverageF2measure(){
+    public double getAverageF2measure() {
         return calculateAverage(F2measureArray);
     }
 
 
-    public double getVarianceFmeasure(){
+    public double getVarianceFmeasure() {
         return calculateVariance(FmeasureArray);
     }
 
-    public double getVarianceF2measure(){
+    public double getVarianceF2measure() {
         return calculateVariance(F2measureArray);
     }
 
 
+    /**
+     * calculate average
+     */
 
-    /**calculate average*/
-
-    private double calculateAverage(List<Integer> list){
+    private double calculateAverage(List<Integer> list) {
         int sum = 0;
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
         for (int i = 0; i < list.size(); i++) {
@@ -84,9 +87,11 @@ public class MeasureRecorder {
     }
 
 
-    /**calculate variance**/
+    /**
+     * calculate variance
+     **/
 
-    private double calculateVariance(List<Integer> list){
+    private double calculateVariance(List<Integer> list) {
         //get average
         double average = calculateAverage(list);
 

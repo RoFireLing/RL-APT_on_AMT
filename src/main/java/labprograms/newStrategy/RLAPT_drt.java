@@ -6,7 +6,6 @@ import labprograms.ERS.sourceCode.ExpenseReimbursementSystem;
 import labprograms.MOS.sourceCode.MSR;
 import labprograms.MOS.sourceCode.MealOrderingSystem;
 import labprograms.constant.Constant;
-import labprograms.log.ResultRecorder;
 import labprograms.method.Methods4Testing;
 import labprograms.mutants.Mutant;
 import labprograms.mutants.UsedMutantsSet;
@@ -374,41 +373,50 @@ public class RLAPT_drt implements NewStrategy {
                 drt.adjustDRT(partitionIndex, isKilledMutants);
 
             }
-            measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
-            measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
+            if ((Constant.getMutantsNumber(objectName) == 1 && onceMeasureRecord.getFmeasure() != 0) || onceMeasureRecord.getF2measure() != 0) {
+                measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
+                measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
 
-            //记录相应的测试用例选择、生成和执行的时间
-            timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
-            timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
-            timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
-            timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
-            timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
-            timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+                //记录相应的测试用例选择、生成和执行的时间
+                timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
+                timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
+                timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
+                timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
+                timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
+                timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+            }
+            if (measureRecorder.getFmeasureArray().size() < 30 && i == Constant.repeatNumber - 1) {
+                i--;
+            }
         }
         //记录均值结果方便查看
-        String txtLogName = "RLAPT_drt4" + objectName + ".txt";
-        RecordResult.recordResult(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
-                measureRecorder.getAverageF2measure());
+        String txtLogName = "DRT4" + objectName + ".txt";
+        double FT = timeRecorder.getAverageExecuteFirstTestCaseTime() + timeRecorder.getAverageGenerateFirstTestCaseTime() + timeRecorder.getAverageSelectFirstTestCaseTime();
+        double F2T = timeRecorder.getAverageExecuteSecondTestCaseTime() + timeRecorder.getAverageGenerateSecondTestCaseTime() + timeRecorder.getAverageSelectSecondTestCaseTime();
+        RecordResult.recordResult2(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
+                measureRecorder.getAverageF2measure(), FT, F2T);
+        txtLogName = "DRT4" + objectName + "_Contents.txt";
+        RecordResult.SpecificResult(txtLogName, repeatTimes, measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray(), timeRecorder.getFirstTotalArray(), timeRecorder.getSecondTotalArray());
 
         //记录详细的实验结果
-        ResultRecorder resultRecorder = new ResultRecorder();
-        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
-        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
-                measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
-
-        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
-                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
-                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
-
-        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
-                timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
-                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
-
-        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
-                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
-                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
-
-        String excelLogName = "RLAPT_drt4" + objectName + ".xlsx";
-        resultRecorder.writeResult(excelLogName, repeatTimes);
+//        ResultRecorder resultRecorder = new ResultRecorder();
+//        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
+//        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
+//                measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
+//
+//        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
+//                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
+//                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
+//
+//        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
+//                timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
+//                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
+//
+//        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
+//                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
+//                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
+//
+//        String excelLogName = "RLAPT_drt4" + objectName + ".xlsx";
+//        resultRecorder.writeResult(excelLogName, repeatTimes);
     }
 }

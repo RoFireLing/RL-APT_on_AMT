@@ -11,23 +11,23 @@ public class OnceMeasureRecord {
     private int Fmeasure;
     private int F2measure;
 
-    /****
-     * 初始化记录度量标准值的对象
-     */
-    private void initializeMeasureRecorders(){
-        Fmeasure = 0;
-        F2measure = 0;
-    }
-
     public OnceMeasureRecord() {
         initializeMeasureRecorders();
     }
 
-    public void FmeasurePlus(int measure){
+    /****
+     * 初始化记录度量标准值的对象
+     */
+    private void initializeMeasureRecorders() {
+        Fmeasure = 0;
+        F2measure = 0;
+    }
+
+    public void FmeasurePlus(int measure) {
         Fmeasure += measure;
     }
 
-    public void F2measurePlus(int measure){
+    public void F2measurePlus(int measure) {
         F2measure += measure;
     }
 

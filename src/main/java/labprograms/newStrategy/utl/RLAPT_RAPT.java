@@ -119,35 +119,53 @@ public class RLAPT_RAPT {
     public void adjustRAPT(int formersourcePartitionIndex,
                            boolean isKilledMutant) {
         double old_i = RAPT[formersourcePartitionIndex];
-
         if (isKilledMutant) {
-            double sum = 0;
-            for (int i = 0; i < RAPT.length; i++) {
-                if (i != formersourcePartitionIndex) {
-                    RAPT[i] -= (1 + Math.log(rew[formersourcePartitionIndex]))
-                            * RAPT_epsilon / (RAPT.length - 1);
-                    if (RAPT[i] < 0) {
-                        RAPT[i] = 0;
-                    }
-                }
-                sum += RAPT[i];
-            }
-            RAPT[formersourcePartitionIndex] = 1 - sum;
+//            double sum = 0;
+//            for (int i = 0; i < RAPT.length; i++) {
+//                if (i != formersourcePartitionIndex) {
+//                    RAPT[i] -= (1 + Math.log(rew[formersourcePartitionIndex]))
+//                            * RAPT_epsilon / (RAPT.length - 1);
+//                    if (RAPT[i] < 0) {
+//                        RAPT[i] = 0;
+//                    }
+//                }
+//                sum += RAPT[i];
+//            }
+//            RAPT[formersourcePartitionIndex] = 1 - sum;
+            rew[formersourcePartitionIndex]++;
+            pun[formersourcePartitionIndex] = 0;
         } else {
-            for (int i = 0; i < RAPT.length; i++) {
-                if (i == formersourcePartitionIndex) {
-                    if (old_i >= RAPT_delta) {
-                        RAPT[i] -= RAPT_delta;
+            pun[formersourcePartitionIndex]++;
+            if (rew[formersourcePartitionIndex] != 0) {
+                double sum = 0;
+                for (int i = 0; i < RAPT.length; i++) {
+                    if (i != formersourcePartitionIndex) {
+                        RAPT[i] -= (1 + Math.log(rew[formersourcePartitionIndex]))
+                                * RAPT_epsilon / (RAPT.length - 1);
+                        if (RAPT[i] < 0) {
+                            RAPT[i] = 0;
+                        }
                     }
-                    if (old_i < RAPT_delta || bou[i] == pun[i]) {
-                        RAPT[i] = 0;
-                    }
-                } else {
-                    if (old_i >= RAPT_delta) {
-                        RAPT[i] += RAPT_delta / (RAPT.length - 1);
-                    }
-                    if (old_i < RAPT_delta || bou[i] == pun[i]) {
-                        RAPT[i] += old_i / (RAPT.length - 1);
+                    sum += RAPT[i];
+                }
+                RAPT[formersourcePartitionIndex] = 1 - sum;
+                rew[formersourcePartitionIndex] = 0;
+            } else {
+                for (int i = 0; i < RAPT.length; i++) {
+                    if (i == formersourcePartitionIndex) {
+                        if (old_i >= RAPT_delta) {
+                            RAPT[i] -= RAPT_delta;
+                        }
+                        if (old_i < RAPT_delta || bou[i] == pun[i]) {
+                            RAPT[i] = 0;
+                        }
+                    } else {
+                        if (old_i >= RAPT_delta) {
+                            RAPT[i] += RAPT_delta / (RAPT.length - 1);
+                        }
+                        if (old_i < RAPT_delta || bou[i] == pun[i]) {
+                            RAPT[i] += old_i / (RAPT.length - 1);
+                        }
                     }
                 }
             }

@@ -4,8 +4,7 @@ package labprograms.CUBS.mutants.SDL_7;// This is a mutant program.
 import java.io.IOException;
 
 
-public class BillCalculation
-{
+public class BillCalculation {
 
     private String planType = "";
 
@@ -29,39 +28,38 @@ public class BillCalculation
 
     private double bill = 0;
 
-    public  double phoneBillCalculation( String planType, int planFee, int talkTime, int flow )
-    {
+    public double phoneBillCalculation(String planType, int planFee, int talkTime, int flow) {
         if (planType == "A" || planType == "a") {
             switch (planFee) {
-            case 46 :
-                talkTimeBench = 50;
-                flowBench = 150;
-                talkTimePer = 0.25;
-                break;
+                case 46:
+                    talkTimeBench = 50;
+                    flowBench = 150;
+                    talkTimePer = 0.25;
+                    break;
 
-            case 96 :
-                talkTimeBench = 96;
-                flowBench = 240;
-                talkTimePer = 0.15;
-                break;
+                case 96:
+                    talkTimeBench = 96;
+                    flowBench = 240;
+                    talkTimePer = 0.15;
+                    break;
 
-            case 286 :
-                talkTimeBench = 286;
-                flowBench = 900;
-                talkTimePer = 0.15;
-                break;
+                case 286:
+                    talkTimeBench = 286;
+                    flowBench = 900;
+                    talkTimePer = 0.15;
+                    break;
 
-            case 886 :
-                talkTimeBench = 3000;
-                flowBench = 3000;
-                talkTimePer = 0.15;
-                break;
+                case 886:
+                    talkTimeBench = 3000;
+                    flowBench = 3000;
+                    talkTimePer = 0.15;
+                    break;
 
-            case 990 :
-                break;
+                case 990:
+                    break;
 
-            default  :
-                new IOException( "Invalid planFee!" );
+                default:
+                    new IOException("Invalid planFee!");
 
             }
         } else {

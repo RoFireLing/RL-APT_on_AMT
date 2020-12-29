@@ -14,45 +14,45 @@ import static java.io.File.separator;
  */
 public class GenerateDir {
 
-    public void generateDir(String objectName){
+    public static void main(String[] args) {
+        GenerateDir generateDir = new GenerateDir();
+        generateDir.generateDir("MOS");
+    }
+
+    public void generateDir(String objectName) {
         String path = new Constant().getPartitionPath() + separator + objectName;
-        if (objectName.equals("ACMS")){
+        if (objectName.equals("ACMS")) {
             for (int i = 0; i < 8; i++) {
                 String tempPath = path + separator + String.valueOf(i);
                 File file = new File(tempPath);
-                if (!file.exists()){
+                if (!file.exists()) {
                     file.mkdir();
                 }
             }
-        }else if (objectName.equals("CUBS")){
+        } else if (objectName.equals("CUBS")) {
             for (int i = 0; i < 4; i++) {
                 String tempPath = path + separator + String.valueOf(i);
                 File file = new File(tempPath);
-                if (!file.exists()){
+                if (!file.exists()) {
                     file.mkdir();
                 }
             }
-        }else if (objectName.equals("ERS")){
+        } else if (objectName.equals("ERS")) {
             for (int i = 0; i < 12; i++) {
                 String tempPath = path + separator + String.valueOf(i);
                 File file = new File(tempPath);
-                if (!file.exists()){
+                if (!file.exists()) {
                     file.mkdir();
                 }
             }
-        }else {
+        } else {
             for (int i = 0; i < 12; i++) {
                 String tempPath = path + separator + String.valueOf(i);
                 File file = new File(tempPath);
-                if (!file.exists()){
+                if (!file.exists()) {
                     file.mkdir();
                 }
             }
         }
-    }
-
-    public static void main(String[] args) {
-        GenerateDir generateDir = new GenerateDir();
-        generateDir.generateDir("MOS");
     }
 }

@@ -45,7 +45,7 @@ public class TestingMOS implements TestingObject {
 
         //开始执行测试
         for (int i = 0; i < Constant.repeatNumber; i++) {
-            System.out.println(tester + "4" + objectName + ":" + "执行第"+ String.valueOf(i + 1) + "次测试：" );
+            System.out.println(tester + "4" + objectName + ":" + "执行第" + String.valueOf(i + 1) + "次测试：");
             //获得变异体集合
             UsedMutantsSet mutantsSet = new UsedMutantsSet(objectName);
             Map<String, Mutant> mutantMap = mutantsSet.getMutants();
@@ -75,9 +75,9 @@ public class TestingMOS implements TestingObject {
                 //测试用例选择结束
                 long endSelectTestCase = System.nanoTime();
                 //记录选择测试用例需要的时间
-                if (killedMutants.size() == 0){
+                if (killedMutants.size() == 0) {
                     onceTimeRecord.firstSelectionTimePlus(endSelectTestCase - startSelectTestCase);
-                }else if (killedMutants.size() == 1){
+                } else if (killedMutants.size() == 1) {
                     onceTimeRecord.secondSelectionTimePlus(endSelectTestCase - startSelectTestCase);
                 }
 
@@ -85,8 +85,8 @@ public class TestingMOS implements TestingObject {
                 String MR = ObtainMRFromOneLine.getMR(objectName, testframesAndMr);
 
                 //遍历变异体
-                for (Map.Entry<String, Mutant> entry : mutantMap.entrySet()){
-                    if (killedMutants.contains(entry.getKey())){
+                for (Map.Entry<String, Mutant> entry : mutantMap.entrySet()) {
+                    if (killedMutants.contains(entry.getKey())) {
                         continue;
                     }
                     Mutant mutant = entry.getValue();
@@ -102,7 +102,7 @@ public class TestingMOS implements TestingObject {
                         MSR sourceResult = null;
                         MSR followUpResult = null;
                         mutantMethod = mutantClazz.getMethod(methodName, String.class, String.class, int.class,
-                                String.class,int.class,int.class,int.class);
+                                String.class, int.class, int.class, int.class);
 
                         // 产生测试用例
                         long startGenerateTestCase = System.nanoTime();
@@ -118,96 +118,96 @@ public class TestingMOS implements TestingObject {
                         long endGenerateTestCase = System.nanoTime();
 
                         //记录产生测试用例的时间
-                        if (killedMutants.size() == 0){
+                        if (killedMutants.size() == 0) {
                             onceTimeRecord.firstGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
-                        }else if (killedMutants.size() == 1){
+                        } else if (killedMutants.size() == 1) {
                             onceTimeRecord.secondGeneratingTimePlus(endGenerateTestCase - startGenerateTestCase);
                         }
 
                         //执行测试用例
                         long startExecuteTestCase = System.nanoTime();
-                        sourceResult = (MSR) mutantMethod.invoke(mutantInstance,sourceTestCase.getAircraftmodel(),
-                                sourceTestCase.getChangeinthenumberofcrewmembers(),sourceTestCase.getNewnumberofcrewmembers(),
-                                sourceTestCase.getChangeinthenumberofpilots(),sourceTestCase.getNewnumberofpilots(),
-                                sourceTestCase.getNumberofchildpassengers(),sourceTestCase.getNumberofrequestedbundlesofflowers());
+                        sourceResult = (MSR) mutantMethod.invoke(mutantInstance, sourceTestCase.getAircraftmodel(),
+                                sourceTestCase.getChangeinthenumberofcrewmembers(), sourceTestCase.getNewnumberofcrewmembers(),
+                                sourceTestCase.getChangeinthenumberofpilots(), sourceTestCase.getNewnumberofpilots(),
+                                sourceTestCase.getNumberofchildpassengers(), sourceTestCase.getNumberofrequestedbundlesofflowers());
 
-                        followUpResult = (MSR) mutantMethod.invoke(mutantInstance,followUpTestCase.getAircraftmodel(),
-                                followUpTestCase.getChangeinthenumberofcrewmembers(),followUpTestCase.getNewnumberofcrewmembers(),
-                                followUpTestCase.getChangeinthenumberofpilots(),followUpTestCase.getNewnumberofpilots(),
-                                followUpTestCase.getNumberofchildpassengers(),followUpTestCase.getNumberofrequestedbundlesofflowers());
+                        followUpResult = (MSR) mutantMethod.invoke(mutantInstance, followUpTestCase.getAircraftmodel(),
+                                followUpTestCase.getChangeinthenumberofcrewmembers(), followUpTestCase.getNewnumberofcrewmembers(),
+                                followUpTestCase.getChangeinthenumberofpilots(), followUpTestCase.getNewnumberofpilots(),
+                                followUpTestCase.getNumberofchildpassengers(), followUpTestCase.getNumberofrequestedbundlesofflowers());
                         long endExecuteTestCase = System.nanoTime();
 
                         // 记录执行测试用例需要的时间
-                        if (killedMutants.size() == 0){
+                        if (killedMutants.size() == 0) {
                             onceTimeRecord.firstExecutingTime(endExecuteTestCase - startExecuteTestCase);
-                        }else if (killedMutants.size() == 1){
+                        } else if (killedMutants.size() == 1) {
                             onceTimeRecord.secondExecutingTime(endExecuteTestCase - startExecuteTestCase);
                         }
 
                         String resultRelation = "";
 
-                        if (sourceResult.numberOfMealsForCrewMembers == followUpResult.numberOfMealsForCrewMembers){
+                        if (sourceResult.numberOfMealsForCrewMembers == followUpResult.numberOfMealsForCrewMembers) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfMealsForCrewMembers > followUpResult.numberOfMealsForCrewMembers){
+                        } else if (sourceResult.numberOfMealsForCrewMembers > followUpResult.numberOfMealsForCrewMembers) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfMealsForPilots == followUpResult.numberOfMealsForPilots){
+                        if (sourceResult.numberOfMealsForPilots == followUpResult.numberOfMealsForPilots) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfMealsForPilots > followUpResult.numberOfMealsForPilots){
+                        } else if (sourceResult.numberOfMealsForPilots > followUpResult.numberOfMealsForPilots) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfChildMeals == followUpResult.numberOfChildMeals){
+                        if (sourceResult.numberOfChildMeals == followUpResult.numberOfChildMeals) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfChildMeals > followUpResult.numberOfChildMeals){
+                        } else if (sourceResult.numberOfChildMeals > followUpResult.numberOfChildMeals) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfBundlesOfFlowers == followUpResult.numberOfBundlesOfFlowers){
+                        if (sourceResult.numberOfBundlesOfFlowers == followUpResult.numberOfBundlesOfFlowers) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfBundlesOfFlowers > followUpResult.numberOfBundlesOfFlowers){
+                        } else if (sourceResult.numberOfBundlesOfFlowers > followUpResult.numberOfBundlesOfFlowers) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfFirstClassMeals == followUpResult.numberOfFirstClassMeals){
+                        if (sourceResult.numberOfFirstClassMeals == followUpResult.numberOfFirstClassMeals) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfFirstClassMeals > followUpResult.numberOfFirstClassMeals){
+                        } else if (sourceResult.numberOfFirstClassMeals > followUpResult.numberOfFirstClassMeals) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfBusinessClassMeals == followUpResult.numberOfBusinessClassMeals){
+                        if (sourceResult.numberOfBusinessClassMeals == followUpResult.numberOfBusinessClassMeals) {
                             resultRelation += "do not change;";
-                        }else if (sourceResult.numberOfBusinessClassMeals > followUpResult.numberOfBusinessClassMeals){
+                        } else if (sourceResult.numberOfBusinessClassMeals > followUpResult.numberOfBusinessClassMeals) {
                             resultRelation += "decrease;";
-                        }else {
+                        } else {
                             resultRelation += "increase;";
                         }
 
-                        if (sourceResult.numberOfEconomicClassMeals == followUpResult.numberOfEconomicClassMeals){
+                        if (sourceResult.numberOfEconomicClassMeals == followUpResult.numberOfEconomicClassMeals) {
                             resultRelation += "do not change";
-                        }else if (sourceResult.numberOfEconomicClassMeals > followUpResult.numberOfEconomicClassMeals){
+                        } else if (sourceResult.numberOfEconomicClassMeals > followUpResult.numberOfEconomicClassMeals) {
                             resultRelation += "decrease";
-                        }else {
+                        } else {
                             resultRelation += "increase";
                         }
 
 
-                        if (!MR.equals(resultRelation)){
-                            if (killedMutants.size() == 0){
+                        if (!MR.equals(resultRelation)) {
+                            if (killedMutants.size() == 0) {
                                 onceMeasureRecord.FmeasurePlus(counter * 2);
                             }
-                            if (killedMutants.size() == 1){
+                            if (killedMutants.size() == 1) {
                                 onceMeasureRecord.F2measurePlus(counter * 2 -
                                         onceMeasureRecord.getFmeasure());
                             }
@@ -245,21 +245,21 @@ public class TestingMOS implements TestingObject {
 
         //记录详细的实验结果
         ResultRecorder resultRecorder = new ResultRecorder();
-        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(),measureRecorder.getF2measureArray());
-        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(),measureRecorder.getAverageF2measure(),
+        resultRecorder.initializeMeasureArray(measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray());
+        resultRecorder.initializeMeasureAverageAndVariance(measureRecorder.getAverageFmeasure(), measureRecorder.getAverageF2measure(),
                 measureRecorder.getVarianceFmeasure(), measureRecorder.getVarianceF2measure());
 
-        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(),timeRecorder.getFirstGenerateTestCaseArray(),
-                timeRecorder.getFirstExecuteTestCaseArray(),timeRecorder.getSecondSelectTestCaseArray(),
-                timeRecorder.getSecondGenerateTestCaseArray(),timeRecorder.getSecondExecuteTestCaseArray());
+        resultRecorder.getTimeArray(timeRecorder.getFirstSelectTestCaseArray(), timeRecorder.getFirstGenerateTestCaseArray(),
+                timeRecorder.getFirstExecuteTestCaseArray(), timeRecorder.getSecondSelectTestCaseArray(),
+                timeRecorder.getSecondGenerateTestCaseArray(), timeRecorder.getSecondExecuteTestCaseArray());
 
-        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(),timeRecorder.getAverageGenerateFirstTestCaseTime(),
+        resultRecorder.getTimeAverage(timeRecorder.getAverageSelectFirstTestCaseTime(), timeRecorder.getAverageGenerateFirstTestCaseTime(),
                 timeRecorder.getAverageExecuteFirstTestCaseTime(), timeRecorder.getAverageSelectSecondTestCaseTime(),
-                timeRecorder.getAverageGenerateSecondTestCaseTime(),timeRecorder.getAverageExecuteSecondTestCaseTime());
+                timeRecorder.getAverageGenerateSecondTestCaseTime(), timeRecorder.getAverageExecuteSecondTestCaseTime());
 
-        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(),timeRecorder.getVarianceGenerateFirstTestCaseTime(),
-                timeRecorder.getVarianceExecuteFirstTestCaseTime(),timeRecorder.getVarianceSelectSecondTestCaseTime(),
-                timeRecorder.getVarianceGenerateSecondTestCaseTime(),timeRecorder.getVarianceExecuteSecondTestCaseTime());
+        resultRecorder.getTimeVariance(timeRecorder.getVarianceSelectFirstTestCaseTime(), timeRecorder.getVarianceGenerateFirstTestCaseTime(),
+                timeRecorder.getVarianceExecuteFirstTestCaseTime(), timeRecorder.getVarianceSelectSecondTestCaseTime(),
+                timeRecorder.getVarianceGenerateSecondTestCaseTime(), timeRecorder.getVarianceExecuteSecondTestCaseTime());
 
         String excelLogName = tester + "4" + objectName + ".xlsx";
         resultRecorder.writeResult(excelLogName, repeatTimes);

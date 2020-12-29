@@ -30,7 +30,7 @@ import java.util.Set;
 public class RLAPT_rapt implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_rapt rapt = new RLAPT_rapt();
-        String[] names = {"ACMS"};
+        String[] names = {"ERS"};
         for (int i = 0; i < 10; i++) {
             for (String name : names) {
                 rapt.testing(name, i);
@@ -358,21 +358,30 @@ public class RLAPT_rapt implements NewStrategy {
                 }
                 rapt.adjustRAPT(partitionIndex, isKilledMutants);
             }
-            measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
-            measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
+            if ((Constant.getMutantsNumber(objectName) == 1 && onceMeasureRecord.getFmeasure() != 0) || onceMeasureRecord.getF2measure() != 0) {
+                measureRecorder.addFMeasure(onceMeasureRecord.getFmeasure());
+                measureRecorder.addF2Measure(onceMeasureRecord.getF2measure());
 
-            //记录相应的测试用例选择、生成和执行的时间
-            timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
-            timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
-            timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
-            timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
-            timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
-            timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+                //记录相应的测试用例选择、生成和执行的时间
+                timeRecorder.addFirstSelectTestCase(onceTimeRecord.getFirstSelectingTime());
+                timeRecorder.addFirstGenerateTestCase(onceTimeRecord.getFirstGeneratingTime());
+                timeRecorder.addFirstExecuteTestCase(onceTimeRecord.getFirstExecutingTime());
+                timeRecorder.addSecondSelectTestCase(onceTimeRecord.getSecondSelectingTime());
+                timeRecorder.addSecondGenerateTestCase(onceTimeRecord.getSecondGeneratingTime());
+                timeRecorder.addSecondExecuteTestCase(onceTimeRecord.getSecondExecutingTime());
+            }
+            if (measureRecorder.getFmeasureArray().size() < 30 && i == Constant.repeatNumber - 1) {
+                i--;
+            }
         }
         //记录均值结果方便查看
-        String txtLogName = "RLAPT_rapt4" + objectName + ".txt";
-        RecordResult.recordResult(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
-                measureRecorder.getAverageF2measure());
+        String txtLogName = "RAPT4" + objectName + ".txt";
+        double FT = timeRecorder.getAverageExecuteFirstTestCaseTime() + timeRecorder.getAverageGenerateFirstTestCaseTime() + timeRecorder.getAverageSelectFirstTestCaseTime();
+        double F2T = timeRecorder.getAverageExecuteSecondTestCaseTime() + timeRecorder.getAverageGenerateSecondTestCaseTime() + timeRecorder.getAverageSelectSecondTestCaseTime();
+        RecordResult.recordResult2(txtLogName, repeatTimes, measureRecorder.getAverageFmeasure(),
+                measureRecorder.getAverageF2measure(), FT, F2T);
+        txtLogName = "RAPT4" + objectName + "_Contents.txt";
+        RecordResult.SpecificResult(txtLogName, repeatTimes, measureRecorder.getFmeasureArray(), measureRecorder.getF2measureArray(), timeRecorder.getFirstTotalArray(), timeRecorder.getSecondTotalArray());
 
         //记录详细的实验结果
 //        ResultRecorder resultRecorder = new ResultRecorder();

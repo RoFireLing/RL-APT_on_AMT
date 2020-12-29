@@ -14,30 +14,31 @@ import static org.apache.poi.ss.usermodel.VerticalAlignment.BOTTOM;
 
 /**
  * describe:
- *  将测试过程的信息记录起来，写入文档中，记录的信息主要包括以下几点：
- *  1，METRIC：Fn
- *  2，每一个度量标准对应的时间，包括;选择测试用例的时间、生成测试用例的时间和执行测试用例的时间
- *  3，每一组数据对应的方差
- *  4，每一组数据对应的平均值
+ * 将测试过程的信息记录起来，写入文档中，记录的信息主要包括以下几点：
+ * 1，METRIC：Fn
+ * 2，每一个度量标准对应的时间，包括;选择测试用例的时间、生成测试用例的时间和执行测试用例的时间
+ * 3，每一组数据对应的方差
+ * 4，每一组数据对应的平均值
+ *
  * @author phantom
  * @date 2019/07/27
  */
 public class WriteDataToExcel {
     public void writeTestingInfoToExcel(String fileName, List<List<Integer>> metrics,
-                                        List<List<Long>> times){
+                                        List<List<Long>> times) {
         int allColumns = 2 * metrics.size() + 1;
         String path = System.getProperty("user.dir") + separator + "excelLog"
                 + separator + fileName + ".xlsx";
         File file = new File(path);
-        if (file.exists()){
+        if (file.exists()) {
             file.delete();
         }
         XSSFWorkbook workbook = (XSSFWorkbook) getWorkBook(path);
         CellStyle cellStyle = getCellStyle(workbook);
         //初始化sheet
-        Sheet sheet = initializeSheet(workbook,cellStyle);
+        Sheet sheet = initializeSheet(workbook, cellStyle);
         //向sheet中添加内容
-        sheet = writeContent(sheet,cellStyle, metrics,times);
+        sheet = writeContent(sheet, cellStyle, metrics, times);
 
         FileOutputStream fileOutputStream = null;
         try {
@@ -53,12 +54,13 @@ public class WriteDataToExcel {
 
     /**
      * 向sheet中添加内容
+     *
      * @param sheet
      * @param cellStyle
      * @return
      */
-    private Sheet writeContent(Sheet sheet, CellStyle cellStyle,List<List<Integer>> metrics,
-                               List<List<Long>> times){
+    private Sheet writeContent(Sheet sheet, CellStyle cellStyle, List<List<Integer>> metrics,
+                               List<List<Long>> times) {
         //首先对第一行进行初始化
         Row row = sheet.createRow(0);
         for (int i = 0; i < metrics.size(); i++) {
@@ -101,26 +103,27 @@ public class WriteDataToExcel {
 
     /**
      * 对表格做初始化处理，主要为第一列添加标号
+     *
      * @param workbook
      * @param cellStyle
      * @return
      */
-    private Sheet initializeSheet(XSSFWorkbook workbook, CellStyle cellStyle){
+    private Sheet initializeSheet(XSSFWorkbook workbook, CellStyle cellStyle) {
         Sheet sheet = workbook.getSheetAt(0);
         for (int i = 1; i < 34; i++) {
-            if (i != 32 || i != 33){
+            if (i != 32 || i != 33) {
                 Row row = sheet.createRow(i);
                 row.setHeightInPoints(30);
                 Cell cell = row.createCell(0);
                 cell.setCellValue(String.valueOf(i));
                 cell.setCellStyle(cellStyle);
-            }else if (i == 32){
+            } else if (i == 32) {
                 Row row = sheet.createRow(i);
                 row.setHeightInPoints(30);
                 Cell cell = row.createCell(0);
                 cell.setCellValue("平均值");
                 cell.setCellStyle(cellStyle);
-            }else {
+            } else {
                 Row row = sheet.createRow(i);
                 row.setHeightInPoints(30);
                 Cell cell = row.createCell(0);
@@ -132,13 +135,13 @@ public class WriteDataToExcel {
     }
 
 
-
     /**
      * 设置单元格的格式
+     *
      * @param workbook 要写入的excel对象
      * @return 单元格的格式的对象
      */
-    private CellStyle getCellStyle(XSSFWorkbook workbook){
+    private CellStyle getCellStyle(XSSFWorkbook workbook) {
         XSSFCellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(CENTER);
         cellStyle.setVerticalAlignment(BOTTOM);
@@ -150,8 +153,8 @@ public class WriteDataToExcel {
         cellStyle.setBorderTop(BorderStyle.THIN);
         return cellStyle;
     }
-    
-    private Workbook getWorkBook(String path){
+
+    private Workbook getWorkBook(String path) {
         Workbook workbook = null;
         try {
             InputStream inputStream = new FileInputStream(path);
@@ -163,9 +166,6 @@ public class WriteDataToExcel {
         }
         return workbook;
     }
-
-
-
 
 
 }

@@ -15,18 +15,22 @@ import java.util.List;
 import java.util.Map;
 
 
-
-
 /**
  * describe:
  * randomly generate test cases to execute mutants, which can get the mutants
  * that at least need 20 test case to be killed
+ *
  * @author phantom
  * @date 2019/04/17
  */
 public class RT4ACMS {
 
-    public void randomTesting(){
+    public static void main(String[] args) {
+        RT4ACMS rt = new RT4ACMS();
+        rt.randomTesting();
+    }
+
+    public void randomTesting() {
         System.out.println("开始测试ACMS");
         Constant constant = new Constant();
         MutantsSet mutantsSet = new MutantsSet("ACMS");
@@ -60,7 +64,7 @@ public class RT4ACMS {
             e.printStackTrace();
         }
 
-        for (Map.Entry<String, Mutant> entry : mutants.entrySet()){
+        for (Map.Entry<String, Mutant> entry : mutants.entrySet()) {
             String mutantName = entry.getKey();
 
             System.out.println("开始测试：" + mutantName);
@@ -74,7 +78,7 @@ public class RT4ACMS {
                 Constructor mutantConstructor = mutantClazz.getConstructor(null);
                 mutantInstance = mutantConstructor.newInstance();
                 mutantMethod = mutantClazz.getMethod(methodName, int.class, int.class,
-                            boolean.class, double.class, double.class);
+                        boolean.class, double.class, double.class);
 
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -97,28 +101,24 @@ public class RT4ACMS {
                 Object sourceResult = null;
                 Object mutantResult = null;
                 try {
-                    sourceResult = sourceMethod.invoke(sourceInstance,tc.getAirClass(),tc.getArea(),
-                                tc.isStudent(), tc.getLuggage(), tc.getEconomicfee());
-                    mutantResult = mutantMethod.invoke(mutantInstance,tc.getAirClass(),tc.getArea(),
-                                tc.isStudent(), tc.getLuggage(), tc.getEconomicfee());
+                    sourceResult = sourceMethod.invoke(sourceInstance, tc.getAirClass(), tc.getArea(),
+                            tc.isStudent(), tc.getLuggage(), tc.getEconomicfee());
+                    mutantResult = mutantMethod.invoke(mutantInstance, tc.getAirClass(), tc.getArea(),
+                            tc.isStudent(), tc.getLuggage(), tc.getEconomicfee());
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 } catch (InvocationTargetException e) {
                     e.printStackTrace();
                 }
-                if (sourceResult.equals(mutantResult)){
+                if (sourceResult.equals(mutantResult)) {
                     continue;
-                }else{
+                } else {
                     killedindex += String.valueOf(i + 1) + ";";
                     count++;
                 }
             }
             writeTestingResult.write("ACMS", mutantName,
-                    killedindex,String.valueOf(count));
+                    killedindex, String.valueOf(count));
         }
-    }
-    public static void main(String[] args) {
-        RT4ACMS rt = new RT4ACMS();
-        rt.randomTesting();
     }
 }

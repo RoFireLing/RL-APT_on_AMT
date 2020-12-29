@@ -1,14 +1,5 @@
 package labprograms.newStrategy.utl;
 
-import labprograms.gethardkilledmutants.MT4ACMS;
-import labprograms.gethardkilledmutants.MT4CUBS;
-import labprograms.gethardkilledmutants.MT4ERS;
-import labprograms.gethardkilledmutants.MT4MOS;
-import labprograms.testCase.TestCase4ACMS;
-import labprograms.testCase.TestCase4CUBS;
-import labprograms.testCase.TestCase4ERS;
-import labprograms.testCase.TestCase4MOS;
-
 import java.util.Random;
 
 /**
@@ -70,8 +61,8 @@ public class MAPT {
      * @param isKilledMutans
      */
     public void adjustMAPT(int formerSourcePartitionIndex,
-                            int formerfollowUpPartitionIndex,
-                            boolean isKilledMutans) {
+                           int formerfollowUpPartitionIndex,
+                           boolean isKilledMutans) {
         //the source test case and follow-up test case belong to the same partition
         double old_i = MAPT[formerSourcePartitionIndex][formerSourcePartitionIndex];
         double old_f = MAPT[formerSourcePartitionIndex][formerfollowUpPartitionIndex];
