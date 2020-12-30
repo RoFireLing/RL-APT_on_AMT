@@ -30,8 +30,8 @@ import java.util.Set;
 public class RLAPT_rlaptq implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_rlaptq mt = new RLAPT_rlaptq();
-        String[] names = {"ERS"};
-        for (int i = 0; i < 10; i++) {
+        String[] names = {"ACMS"};
+        for (int i = 0; i < 50; i++) {
             for (String name : names) {
                 mt.testing(name, i);
             }

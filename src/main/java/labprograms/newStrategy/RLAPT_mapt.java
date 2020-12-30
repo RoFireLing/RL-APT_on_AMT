@@ -30,8 +30,8 @@ import java.util.Set;
 public class RLAPT_mapt implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_mapt mt = new RLAPT_mapt();
-        String[] names = {"CUBS"};
-        for (int i = 0; i < 10; i++) {
+        String[] names = {"ACMS"};
+        for (int i = 0; i < 50; i++) {
             for (String name : names) {
                 mt.testing(name, i);
             }

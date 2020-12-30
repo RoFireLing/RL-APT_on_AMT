@@ -31,7 +31,7 @@ public class RLAPT_drt implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_drt mt = new RLAPT_drt();
         String[] names = {"ACMS"};
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             for (String name : names) {
                 mt.testing(name, i);
             }

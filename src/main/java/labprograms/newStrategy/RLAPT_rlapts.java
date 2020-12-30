@@ -31,7 +31,7 @@ public class RLAPT_rlapts implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_rlapts mt = new RLAPT_rlapts();
         String[] names = {"ACMS"};
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             for (String name : names) {
                 mt.testing(name, i);
             }
@@ -60,11 +60,9 @@ public class RLAPT_rlapts implements NewStrategy {
                     "执行第" + String.valueOf(i + 1) + "次测试：");
 
             //初始化RL APT
-//            MAPT mapt = new MAPT();
             RLAPT_S rlapt = new RLAPT_S();
 
             //初始化测试剖面
-//            mapt.initializeMAPT(Constant.getPartitionNumber(objectName));
             rlapt.initializeRLAPT(Constant.getPartitionNumber(objectName));
 
             //获得变异体集合
@@ -109,7 +107,7 @@ public class RLAPT_rlapts implements NewStrategy {
                     nextPartitionIndex = rlapt.nextPartition4RLAPT(objectName, partitionIndex, counter);
                 } else {
                     partitionIndex = nextPartitionIndex;
-                    nextnextPartitionIndex = nextnextPartitionIndex;
+                    nextPartitionIndex = nextnextPartitionIndex;
                 }
 
                 //epsilon greedy策略选择下下分区

@@ -30,8 +30,8 @@ import java.util.Set;
 public class RLAPT_rapt implements NewStrategy {
     public static void main(String[] args) {
         RLAPT_rapt rapt = new RLAPT_rapt();
-        String[] names = {"ERS"};
-        for (int i = 0; i < 10; i++) {
+        String[] names = {"ACMS"};
+        for (int i = 0; i < 50; i++) {
             for (String name : names) {
                 rapt.testing(name, i);
             }
