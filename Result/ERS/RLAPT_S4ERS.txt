@@ -1,0 +1,450 @@
+id-version: 0
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 1847143.33	F2time: 4412326.67
+id-version: 1
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 595546.67	F2time: 5758060.0
+id-version: 2
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 207023.32999999996	F2time: 2166123.33
+id-version: 3
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 169643.33000000002	F2time: 1656663.33
+id-version: 4
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 144563.33000000002	F2time: 1760880.0
+id-version: 5
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 152910.0	F2time: 2083453.33
+id-version: 6
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 74340.0	F2time: 1184393.33
+id-version: 7
+Fmeasure: 34.0	F2measure: 0.0
+Ftime: 312230.0	F2time: 3276236.67
+id-version: 8
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 221783.34000000003	F2time: 3556880.0
+id-version: 9
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 166140.0	F2time: 3513476.67
+id-version: 10
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 159756.66999999998	F2time: 3835173.33
+id-version: 11
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 195196.67	F2time: 3944536.67
+id-version: 12
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 123730.0	F2time: 3943076.67
+id-version: 13
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 177456.66000000003	F2time: 5144273.33
+id-version: 14
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 176663.34	F2time: 4287433.33
+id-version: 15
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 235480.0	F2time: 2921846.67
+id-version: 16
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 205803.33999999997	F2time: 3494883.33
+id-version: 17
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 167040.0	F2time: 3678766.67
+id-version: 18
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 132740.0	F2time: 3689766.67
+id-version: 19
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 166486.66999999998	F2time: 3595610.0
+id-version: 20
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 162826.66999999998	F2time: 3895310.0
+id-version: 21
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 139450.0	F2time: 3613513.33
+id-version: 22
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 121733.33	F2time: 3403220.0
+id-version: 23
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 219010.0	F2time: 4206293.33
+id-version: 24
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 97656.67	F2time: 2728790.0
+id-version: 25
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 134816.66999999998	F2time: 2889020.0
+id-version: 26
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 192506.65999999997	F2time: 4038303.33
+id-version: 27
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 134476.66999999998	F2time: 3381960.0
+id-version: 28
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 110576.66	F2time: 2931993.33
+id-version: 29
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 151866.66	F2time: 3033503.33
+id-version: 30
+Fmeasure: 16.0	F2measure: 0.0
+Ftime: 109390.0	F2time: 3307573.33
+id-version: 31
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 119923.33	F2time: 3087186.67
+id-version: 32
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 129150.01	F2time: 3085646.67
+id-version: 33
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 159803.33000000002	F2time: 3616160.0
+id-version: 34
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 149116.66	F2time: 3419480.0
+id-version: 35
+Fmeasure: 28.0	F2measure: 0.0
+Ftime: 175463.33000000002	F2time: 3343996.67
+id-version: 36
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 145056.66999999998	F2time: 3407216.67
+id-version: 37
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 170500.0	F2time: 3745566.67
+id-version: 38
+Fmeasure: 34.0	F2measure: 0.0
+Ftime: 184990.0	F2time: 3180646.67
+id-version: 39
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 110453.33	F2time: 3330630.0
+id-version: 40
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 141553.34	F2time: 3433616.67
+id-version: 41
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 157430.0	F2time: 3373566.67
+id-version: 42
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 211140.0	F2time: 3857523.33
+id-version: 43
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 120656.66	F2time: 3563943.33
+id-version: 44
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 157296.66999999998	F2time: 3281263.33
+id-version: 45
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 176353.33	F2time: 3343393.33
+id-version: 46
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 117773.33	F2time: 3224863.33
+id-version: 47
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 124066.66	F2time: 3106403.33
+id-version: 48
+Fmeasure: 30.0	F2measure: 0.0
+Ftime: 169750.0	F2time: 3241133.33
+id-version: 49
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 104440.0	F2time: 3027116.67
+id-version: 0
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 1836206.67	F2time: 3595183.33
+id-version: 1
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 258146.67	F2time: 1961300.0
+id-version: 2
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 242886.67	F2time: 2244356.67
+id-version: 3
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 150746.66	F2time: 1771423.33
+id-version: 4
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 196610.01	F2time: 2308030.0
+id-version: 5
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 132396.67	F2time: 2231680.0
+id-version: 6
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 109290.0	F2time: 1975313.33
+id-version: 7
+Fmeasure: 17.0	F2measure: 0.0
+Ftime: 122646.67	F2time: 2844593.33
+id-version: 8
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 156333.33	F2time: 1957340.0
+id-version: 9
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 136346.66999999998	F2time: 2305773.33
+id-version: 10
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 77830.01	F2time: 2539180.0
+id-version: 11
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 92623.33	F2time: 1721833.33
+id-version: 12
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 91240.0	F2time: 2300130.0
+id-version: 13
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 167566.66999999998	F2time: 4668580.0
+id-version: 14
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 169926.66000000003	F2time: 4258286.67
+id-version: 15
+Fmeasure: 28.0	F2measure: 0.0
+Ftime: 210263.34000000003	F2time: 5018506.67
+id-version: 16
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 200276.65999999997	F2time: 4945953.33
+id-version: 17
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 147166.66	F2time: 4194093.33
+id-version: 18
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 203706.66999999998	F2time: 4536380.0
+id-version: 19
+Fmeasure: 32.0	F2measure: 0.0
+Ftime: 178916.66000000003	F2time: 4178530.0
+id-version: 20
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 112383.33	F2time: 4035303.33
+id-version: 21
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 126106.66	F2time: 3981823.33
+id-version: 22
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 126000.0	F2time: 3509363.33
+id-version: 23
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 128990.01	F2time: 3691346.67
+id-version: 24
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 133470.0	F2time: 3320566.67
+id-version: 25
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 157933.33000000002	F2time: 4904520.0
+id-version: 26
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 113469.99	F2time: 3451543.33
+id-version: 27
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 120916.66	F2time: 3475200.0
+id-version: 28
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 167213.34	F2time: 4012106.67
+id-version: 29
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 146133.33000000002	F2time: 4131816.67
+id-version: 30
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 115840.0	F2time: 4010350.0
+id-version: 31
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 148473.33000000002	F2time: 3582750.0
+id-version: 32
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 121443.34	F2time: 3677376.67
+id-version: 33
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 146520.0	F2time: 3584393.33
+id-version: 34
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 109093.33	F2time: 3225920.0
+id-version: 35
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 165553.33999999997	F2time: 3633670.0
+id-version: 36
+Fmeasure: 28.0	F2measure: 0.0
+Ftime: 201133.32999999996	F2time: 4226590.0
+id-version: 37
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 107920.0	F2time: 3360573.33
+id-version: 38
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 215606.65999999997	F2time: 3322843.33
+id-version: 39
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 103083.33	F2time: 3077563.33
+id-version: 40
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 154080.01	F2time: 3637220.0
+id-version: 41
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 131673.34	F2time: 3140416.67
+id-version: 42
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 123076.67	F2time: 3143590.0
+id-version: 43
+Fmeasure: 33.0	F2measure: 0.0
+Ftime: 161090.01	F2time: 3161866.67
+id-version: 44
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 132606.66999999998	F2time: 3304283.33
+id-version: 45
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 98623.33	F2time: 3246306.67
+id-version: 46
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 112260.0	F2time: 3116270.0
+id-version: 47
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 141050.01	F2time: 3216143.33
+id-version: 48
+Fmeasure: 33.0	F2measure: 0.0
+Ftime: 156940.0	F2time: 3105020.0
+id-version: 49
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 140683.33000000002	F2time: 3265736.67
+id-version: 0
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 2296093.33	F2time: 6011936.67
+id-version: 1
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 684846.67	F2time: 4871906.67
+id-version: 2
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 376626.66000000003	F2time: 4346226.67
+id-version: 3
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 420213.33	F2time: 4865040.0
+id-version: 4
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 262036.66999999998	F2time: 4107890.0
+id-version: 5
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 205163.33000000002	F2time: 3437290.0
+id-version: 6
+Fmeasure: 28.0	F2measure: 0.0
+Ftime: 112026.66	F2time: 1416213.33
+id-version: 7
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 146460.0	F2time: 2658040.0
+id-version: 8
+Fmeasure: 14.0	F2measure: 0.0
+Ftime: 109270.0	F2time: 3252506.67
+id-version: 9
+Fmeasure: 30.0	F2measure: 0.0
+Ftime: 159700.01	F2time: 3733593.33
+id-version: 10
+Fmeasure: 28.0	F2measure: 0.0
+Ftime: 303920.0	F2time: 3354766.67
+id-version: 11
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 146466.66999999998	F2time: 3305730.0
+id-version: 12
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 140410.0	F2time: 3256746.67
+id-version: 13
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 209410.0	F2time: 3346000.0
+id-version: 14
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 172063.33000000002	F2time: 3488306.67
+id-version: 15
+Fmeasure: 20.0	F2measure: 0.0
+Ftime: 138350.0	F2time: 3571680.0
+id-version: 16
+Fmeasure: 36.0	F2measure: 0.0
+Ftime: 184850.0	F2time: 3186826.67
+id-version: 17
+Fmeasure: 34.0	F2measure: 0.0
+Ftime: 227700.0	F2time: 3438870.0
+id-version: 18
+Fmeasure: 30.0	F2measure: 0.0
+Ftime: 165460.0	F2time: 3218696.67
+id-version: 19
+Fmeasure: 22.0	F2measure: 0.0
+Ftime: 138400.0	F2time: 3251323.33
+id-version: 20
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 110786.67	F2time: 2980120.0
+id-version: 21
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 112996.67	F2time: 2905016.67
+id-version: 22
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 105523.34	F2time: 2983610.0
+id-version: 23
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 148726.66999999998	F2time: 2997636.67
+id-version: 24
+Fmeasure: 15.0	F2measure: 0.0
+Ftime: 83046.66	F2time: 2926383.33
+id-version: 25
+Fmeasure: 29.0	F2measure: 0.0
+Ftime: 139826.66999999998	F2time: 3074360.0
+id-version: 26
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 100103.33	F2time: 3014800.0
+id-version: 27
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 99743.33	F2time: 2934913.33
+id-version: 28
+Fmeasure: 27.0	F2measure: 0.0
+Ftime: 132583.34	F2time: 2916056.67
+id-version: 29
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 101060.0	F2time: 2980840.0
+id-version: 30
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 117806.66	F2time: 2972770.0
+id-version: 31
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 110610.01	F2time: 2960583.33
+id-version: 32
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 106160.0	F2time: 2934723.33
+id-version: 33
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 121036.67	F2time: 2989250.0
+id-version: 34
+Fmeasure: 26.0	F2measure: 0.0
+Ftime: 131596.66999999998	F2time: 3019786.67
+id-version: 35
+Fmeasure: 21.0	F2measure: 0.0
+Ftime: 108313.33	F2time: 2934326.67
+id-version: 36
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 121343.33	F2time: 3471806.67
+id-version: 37
+Fmeasure: 25.0	F2measure: 0.0
+Ftime: 161710.0	F2time: 3392226.67
+id-version: 38
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 131803.33000000002	F2time: 3199490.0
+id-version: 39
+Fmeasure: 30.0	F2measure: 0.0
+Ftime: 149066.66999999998	F2time: 2993150.0
+id-version: 40
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 120720.0	F2time: 2971753.33
+id-version: 41
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 150336.66999999998	F2time: 3057016.67
+id-version: 42
+Fmeasure: 32.0	F2measure: 0.0
+Ftime: 156343.33999999997	F2time: 2960286.67
+id-version: 43
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 196163.33000000002	F2time: 3756106.67
+id-version: 44
+Fmeasure: 23.0	F2measure: 0.0
+Ftime: 154860.0	F2time: 3313710.0
+id-version: 45
+Fmeasure: 19.0	F2measure: 0.0
+Ftime: 140703.33000000002	F2time: 4636816.67
+id-version: 46
+Fmeasure: 31.0	F2measure: 0.0
+Ftime: 139376.66999999998	F2time: 2503510.0
+id-version: 47
+Fmeasure: 18.0	F2measure: 0.0
+Ftime: 98223.33	F2time: 3086953.33
+id-version: 48
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 134930.0	F2time: 3210116.67
+id-version: 49
+Fmeasure: 24.0	F2measure: 0.0
+Ftime: 152153.33999999997	F2time: 3479773.33
