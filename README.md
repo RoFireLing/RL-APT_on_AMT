@@ -1,4 +1,3 @@
-# RL-APT_AMTbased
-RLAPT experiment based on AMT/DMT framework
-
-3 Lab-Programs included：ACMS；CUBS；ERS
+# RL-APT_FDMTbased
+RLAPT experiments based on FDMT
+Subjects：ACMS；CUBS；ERS
